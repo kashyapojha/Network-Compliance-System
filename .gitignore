@@ -1,2 +1,88 @@
-/backend/.env.example
-/frontend/node_modules
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+database/*.db
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+logs/
+*.log
+
+# Node.js/Frontend
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+frontend/dist/
+frontend/.next/
+frontend/out/
+
+# Docker
+.dockerignore
+
+# Certificates (sensitive)
+certificates/*.key
+certificates/*.pem
+certificates/*.crt
+certificates/*.p12
+certificates/*.pfx
+
+# FreeRADIUS
+freeradius/raddb/certs/
+
+# Monitoring
+monitoring/logs/
+
+# Network Monitor
+network-monitor/logs/
