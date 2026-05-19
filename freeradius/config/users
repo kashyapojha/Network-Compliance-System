@@ -1,0 +1,15 @@
+#
+# Users file for FreeRADIUS
+# This file is used for local user authentication
+# For certificate-based auth, users are validated via SQL
+#
+
+# Default fallback
+DEFAULT Auth-Type := Reject
+    Reply-Message = "Certificate-based authentication required"
+
+# Test user for debugging
+test Cleartext-Password := "test123"
+    Service-Type = Framed-User,
+    Framed-Protocol = PPP,
+    Framed-IP-Address = 192.168.1.100

@@ -1,0 +1,652 @@
+2026-05-19 10:39:26,404 [INFO] Database initialised at logs/devices.db
+2026-05-19 10:39:26,641 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-19 10:39:26,641 [INFO] [33mPress CTRL+C to quit[0m
+2026-05-19 10:39:26,643 [INFO]  * Restarting with stat
+2026-05-19 10:39:26,986 [INFO] Database initialised at logs/devices.db
+2026-05-19 10:39:27,011 [WARNING]  * Debugger is active!
+2026-05-19 10:39:27,014 [INFO]  * Debugger PIN: 237-796-353
+2026-05-19 10:44:44,039 [INFO] Database initialised at logs/devices.db
+2026-05-19 10:44:44,111 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-19 10:44:44,111 [INFO] [33mPress CTRL+C to quit[0m
+2026-05-19 10:44:44,116 [INFO]  * Restarting with stat
+2026-05-19 10:44:44,420 [INFO] Database initialised at logs/devices.db
+2026-05-19 10:44:44,441 [WARNING]  * Debugger is active!
+2026-05-19 10:44:44,447 [INFO]  * Debugger PIN: 237-796-353
+2026-05-19 10:49:34,880 [INFO] Database initialised at logs/devices.db
+2026-05-19 10:49:34,902 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-19 10:49:34,903 [INFO] [33mPress CTRL+C to quit[0m
+2026-05-19 10:49:36,089 [INFO] 127.0.0.1 - - [19/May/2026 10:49:36] "GET / HTTP/1.1" 200 -
+2026-05-19 10:49:36,142 [INFO] 127.0.0.1 - - [19/May/2026 10:49:36] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:49:36,407 [INFO] 127.0.0.1 - - [19/May/2026 10:49:36] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-05-19 10:49:42,418 [INFO] 127.0.0.1 - - [19/May/2026 10:49:42] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:49:47,111 [INFO] 127.0.0.1 - - [19/May/2026 10:49:47] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:49:52,424 [INFO] 127.0.0.1 - - [19/May/2026 10:49:52] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:49:57,111 [INFO] 127.0.0.1 - - [19/May/2026 10:49:57] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:50:02,430 [INFO] 127.0.0.1 - - [19/May/2026 10:50:02] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:50:07,116 [INFO] 127.0.0.1 - - [19/May/2026 10:50:07] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:50:12,415 [INFO] 127.0.0.1 - - [19/May/2026 10:50:12] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:50:17,118 [INFO] 127.0.0.1 - - [19/May/2026 10:50:17] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:50:22,418 [INFO] 127.0.0.1 - - [19/May/2026 10:50:22] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:50:27,115 [INFO] 127.0.0.1 - - [19/May/2026 10:50:27] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:50:32,429 [INFO] 127.0.0.1 - - [19/May/2026 10:50:32] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:50:52,110 [INFO] 127.0.0.1 - - [19/May/2026 10:50:52] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:51:52,419 [INFO] 127.0.0.1 - - [19/May/2026 10:51:52] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:52:52,117 [INFO] 127.0.0.1 - - [19/May/2026 10:52:52] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:53:13,788 [INFO] 127.0.0.1 - - [19/May/2026 10:53:13] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:53:16,144 [INFO] 127.0.0.1 - - [19/May/2026 10:53:16] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:53:21,455 [INFO] 127.0.0.1 - - [19/May/2026 10:53:21] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:53:27,108 [INFO] 127.0.0.1 - - [19/May/2026 10:53:27] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:53:31,442 [INFO] 127.0.0.1 - - [19/May/2026 10:53:31] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:53:36,141 [INFO] 127.0.0.1 - - [19/May/2026 10:53:36] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:53:41,442 [INFO] 127.0.0.1 - - [19/May/2026 10:53:41] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:53:46,135 [INFO] 127.0.0.1 - - [19/May/2026 10:53:46] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:53:52,423 [INFO] 127.0.0.1 - - [19/May/2026 10:53:52] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:53:57,110 [INFO] 127.0.0.1 - - [19/May/2026 10:53:57] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:54:02,426 [INFO] 127.0.0.1 - - [19/May/2026 10:54:02] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:54:07,112 [INFO] 127.0.0.1 - - [19/May/2026 10:54:07] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:54:12,424 [INFO] 127.0.0.1 - - [19/May/2026 10:54:12] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:54:17,116 [INFO] 127.0.0.1 - - [19/May/2026 10:54:17] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:54:22,414 [INFO] 127.0.0.1 - - [19/May/2026 10:54:22] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:54:27,118 [INFO] 127.0.0.1 - - [19/May/2026 10:54:27] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:54:32,417 [INFO] 127.0.0.1 - - [19/May/2026 10:54:32] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:54:37,120 [INFO] 127.0.0.1 - - [19/May/2026 10:54:37] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:54:42,419 [INFO] 127.0.0.1 - - [19/May/2026 10:54:42] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:54:47,109 [INFO] 127.0.0.1 - - [19/May/2026 10:54:47] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:54:52,420 [INFO] 127.0.0.1 - - [19/May/2026 10:54:52] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:54:57,112 [INFO] 127.0.0.1 - - [19/May/2026 10:54:57] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:55:02,418 [INFO] 127.0.0.1 - - [19/May/2026 10:55:02] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:55:07,116 [INFO] 127.0.0.1 - - [19/May/2026 10:55:07] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:55:12,420 [INFO] 127.0.0.1 - - [19/May/2026 10:55:12] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:55:17,120 [INFO] 127.0.0.1 - - [19/May/2026 10:55:17] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:55:22,422 [INFO] 127.0.0.1 - - [19/May/2026 10:55:22] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:55:26,130 [INFO] 127.0.0.1 - - [19/May/2026 10:55:26] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:55:31,435 [INFO] 127.0.0.1 - - [19/May/2026 10:55:31] "GET / HTTP/1.1" 200 -
+2026-05-19 10:55:31,581 [INFO] 127.0.0.1 - - [19/May/2026 10:55:31] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:55:35,411 [INFO] 127.0.0.1 - - [19/May/2026 10:55:35] "POST /api/scan HTTP/1.1" 200 -
+2026-05-19 10:55:35,418 [INFO] 127.0.0.1 - - [19/May/2026 10:55:35] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:55:36,767 [INFO] 127.0.0.1 - - [19/May/2026 10:55:36] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:55:37,096 [INFO] 127.0.0.1 - - [19/May/2026 10:55:37] "POST /api/scan HTTP/1.1" 200 -
+2026-05-19 10:55:37,420 [INFO] 127.0.0.1 - - [19/May/2026 10:55:37] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:55:41,462 [INFO] 127.0.0.1 - - [19/May/2026 10:55:41] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:55:42,359 [INFO] 127.0.0.1 - - [19/May/2026 10:55:42] "POST /api/scan HTTP/1.1" 200 -
+2026-05-19 10:55:42,601 [INFO] 127.0.0.1 - - [19/May/2026 10:55:42] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:55:46,460 [INFO] 127.0.0.1 - - [19/May/2026 10:55:46] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:55:51,782 [INFO] 127.0.0.1 - - [19/May/2026 10:55:51] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:55:56,461 [INFO] 127.0.0.1 - - [19/May/2026 10:55:56] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:56:01,767 [INFO] 127.0.0.1 - - [19/May/2026 10:56:01] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:56:06,463 [INFO] 127.0.0.1 - - [19/May/2026 10:56:06] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:56:11,763 [INFO] 127.0.0.1 - - [19/May/2026 10:56:11] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:56:16,461 [INFO] 127.0.0.1 - - [19/May/2026 10:56:16] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:56:21,779 [INFO] 127.0.0.1 - - [19/May/2026 10:56:21] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:56:26,462 [INFO] 127.0.0.1 - - [19/May/2026 10:56:26] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:56:31,758 [INFO] 127.0.0.1 - - [19/May/2026 10:56:31] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:56:36,466 [INFO] 127.0.0.1 - - [19/May/2026 10:56:36] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:56:41,775 [INFO] 127.0.0.1 - - [19/May/2026 10:56:41] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:56:46,461 [INFO] 127.0.0.1 - - [19/May/2026 10:56:46] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:56:51,763 [INFO] 127.0.0.1 - - [19/May/2026 10:56:51] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:56:56,462 [INFO] 127.0.0.1 - - [19/May/2026 10:56:56] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:56:59,706 [INFO] 127.0.0.1 - - [19/May/2026 10:56:59] "POST /api/scan HTTP/1.1" 200 -
+2026-05-19 10:56:59,942 [INFO] 127.0.0.1 - - [19/May/2026 10:56:59] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:57:01,460 [INFO] 127.0.0.1 - - [19/May/2026 10:57:01] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:57:06,760 [INFO] 127.0.0.1 - - [19/May/2026 10:57:06] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:57:11,461 [INFO] 127.0.0.1 - - [19/May/2026 10:57:11] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:57:16,774 [INFO] 127.0.0.1 - - [19/May/2026 10:57:16] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:57:21,456 [INFO] 127.0.0.1 - - [19/May/2026 10:57:21] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:57:26,774 [INFO] 127.0.0.1 - - [19/May/2026 10:57:26] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:57:31,462 [INFO] 127.0.0.1 - - [19/May/2026 10:57:31] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:57:36,771 [INFO] 127.0.0.1 - - [19/May/2026 10:57:36] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:57:41,456 [INFO] 127.0.0.1 - - [19/May/2026 10:57:41] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:57:46,758 [INFO] 127.0.0.1 - - [19/May/2026 10:57:46] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:57:51,460 [INFO] 127.0.0.1 - - [19/May/2026 10:57:51] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:57:56,772 [INFO] 127.0.0.1 - - [19/May/2026 10:57:56] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:58:01,457 [INFO] 127.0.0.1 - - [19/May/2026 10:58:01] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:58:06,759 [INFO] 127.0.0.1 - - [19/May/2026 10:58:06] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:58:11,461 [INFO] 127.0.0.1 - - [19/May/2026 10:58:11] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:58:16,771 [INFO] 127.0.0.1 - - [19/May/2026 10:58:16] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:58:21,459 [INFO] 127.0.0.1 - - [19/May/2026 10:58:21] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:58:26,773 [INFO] 127.0.0.1 - - [19/May/2026 10:58:26] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:58:31,460 [INFO] 127.0.0.1 - - [19/May/2026 10:58:31] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:58:36,775 [INFO] 127.0.0.1 - - [19/May/2026 10:58:36] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:58:41,458 [INFO] 127.0.0.1 - - [19/May/2026 10:58:41] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 10:58:46,767 [INFO] 127.0.0.1 - - [19/May/2026 10:58:46] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:04:17,512 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:04:17,575 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-19 11:04:17,575 [INFO] [33mPress CTRL+C to quit[0m
+2026-05-19 11:04:17,577 [INFO]  * Restarting with stat
+2026-05-19 11:04:17,863 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:04:17,877 [WARNING]  * Debugger is active!
+2026-05-19 11:04:17,880 [INFO]  * Debugger PIN: 237-796-353
+2026-05-19 11:04:17,902 [INFO] 127.0.0.1 - - [19/May/2026 11:04:17] "GET / HTTP/1.1" 200 -
+2026-05-19 11:04:17,942 [INFO] 127.0.0.1 - - [19/May/2026 11:04:17] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:04:18,061 [INFO] 127.0.0.1 - - [19/May/2026 11:04:18] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-05-19 11:04:23,033 [INFO] 127.0.0.1 - - [19/May/2026 11:04:23] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:04:27,932 [INFO] 127.0.0.1 - - [19/May/2026 11:04:27] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:04:32,936 [INFO] 127.0.0.1 - - [19/May/2026 11:04:32] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:04:37,938 [INFO] 127.0.0.1 - - [19/May/2026 11:04:37] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:04:42,931 [INFO] 127.0.0.1 - - [19/May/2026 11:04:42] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:04:47,933 [INFO] 127.0.0.1 - - [19/May/2026 11:04:47] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:04:52,931 [INFO] 127.0.0.1 - - [19/May/2026 11:04:52] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:04:57,932 [INFO] 127.0.0.1 - - [19/May/2026 11:04:57] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:05:02,931 [INFO] 127.0.0.1 - - [19/May/2026 11:05:02] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:05:07,932 [INFO] 127.0.0.1 - - [19/May/2026 11:05:07] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:05:12,935 [INFO] 127.0.0.1 - - [19/May/2026 11:05:12] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:05:17,935 [INFO] 127.0.0.1 - - [19/May/2026 11:05:17] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:05:22,930 [INFO] 127.0.0.1 - - [19/May/2026 11:05:22] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:05:27,931 [INFO] 127.0.0.1 - - [19/May/2026 11:05:27] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:05:32,936 [INFO] 127.0.0.1 - - [19/May/2026 11:05:32] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:05:37,935 [INFO] 127.0.0.1 - - [19/May/2026 11:05:37] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:05:42,934 [INFO] 127.0.0.1 - - [19/May/2026 11:05:42] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:05:47,929 [INFO] 127.0.0.1 - - [19/May/2026 11:05:47] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:05:52,930 [INFO] 127.0.0.1 - - [19/May/2026 11:05:52] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:05:57,930 [INFO] 127.0.0.1 - - [19/May/2026 11:05:57] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:06:02,933 [INFO] 127.0.0.1 - - [19/May/2026 11:06:02] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:06:07,931 [INFO] 127.0.0.1 - - [19/May/2026 11:06:07] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:06:12,934 [INFO] 127.0.0.1 - - [19/May/2026 11:06:12] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:06:17,935 [INFO] 127.0.0.1 - - [19/May/2026 11:06:17] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:06:22,930 [INFO] 127.0.0.1 - - [19/May/2026 11:06:22] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:06:27,933 [INFO] 127.0.0.1 - - [19/May/2026 11:06:27] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:06:32,930 [INFO] 127.0.0.1 - - [19/May/2026 11:06:32] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:06:37,933 [INFO] 127.0.0.1 - - [19/May/2026 11:06:37] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:06:42,928 [INFO] 127.0.0.1 - - [19/May/2026 11:06:42] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:06:47,931 [INFO] 127.0.0.1 - - [19/May/2026 11:06:47] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:06:52,932 [INFO] 127.0.0.1 - - [19/May/2026 11:06:52] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:06:57,931 [INFO] 127.0.0.1 - - [19/May/2026 11:06:57] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:07:02,931 [INFO] 127.0.0.1 - - [19/May/2026 11:07:02] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:07:07,930 [INFO] 127.0.0.1 - - [19/May/2026 11:07:07] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:07:12,931 [INFO] 127.0.0.1 - - [19/May/2026 11:07:12] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:07:17,931 [INFO] 127.0.0.1 - - [19/May/2026 11:07:17] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:07:22,930 [INFO] 127.0.0.1 - - [19/May/2026 11:07:22] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:07:27,929 [INFO] 127.0.0.1 - - [19/May/2026 11:07:27] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:07:32,930 [INFO] 127.0.0.1 - - [19/May/2026 11:07:32] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:07:37,929 [INFO] 127.0.0.1 - - [19/May/2026 11:07:37] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:07:42,929 [INFO] 127.0.0.1 - - [19/May/2026 11:07:42] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:14:50,112 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:14:50,113 [INFO] Network Naming Compliance Monitor started
+2026-05-19 11:14:50,113 [INFO] Policy pattern: ^(IT|HR|FIN|OPS|DEV|MKT)-(WS|LPT|SRV|PRN|MOB|CAM|IOT)-\d{4}$
+2026-05-19 11:14:52,918 [INFO] Scanning network with ARP: 192.168.1.0/24
+2026-05-19 11:15:07,439 [WARNING] [VIOLATION] 192-168-1-1 (192.168.1.1) — Must start with a dept prefix (IT, HR, FIN, OPS, DEV, MKT); Must contain a device type (WS, LPT, SRV, PRN, MOB, CAM, IOT); Must end with -XXXX (4-digit ID)
+2026-05-19 11:15:07,607 [ERROR] Failed to send alert email: [Errno 11001] getaddrinfo failed
+2026-05-19 11:15:07,643 [WARNING] [VIOLATION] KARAN (192.168.1.21) — Must start with a dept prefix (IT, HR, FIN, OPS, DEV, MKT); Must contain a device type (WS, LPT, SRV, PRN, MOB, CAM, IOT); Must end with -XXXX (4-digit ID); Length must be between 10 and 20 characters
+2026-05-19 11:15:07,648 [ERROR] Failed to send alert email: [Errno 11001] getaddrinfo failed
+2026-05-19 11:15:07,669 [WARNING] [VIOLATION] 192-168-1-2 (192.168.1.2) — Must start with a dept prefix (IT, HR, FIN, OPS, DEV, MKT); Must contain a device type (WS, LPT, SRV, PRN, MOB, CAM, IOT); Must end with -XXXX (4-digit ID)
+2026-05-19 11:15:07,671 [ERROR] Failed to send alert email: [Errno 11001] getaddrinfo failed
+2026-05-19 11:15:07,681 [INFO] Scan complete. Next scan in 30s.
+2026-05-19 11:15:18,888 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:15:18,995 [INFO] [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-05-19 11:15:18,995 [INFO] [33mPress CTRL+C to quit[0m
+2026-05-19 11:15:19,036 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:15:19,648 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:15:19,700 [WARNING]  * Debugger is active!
+2026-05-19 11:15:19,712 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:15:37,684 [INFO] Scanning network with ARP: 192.168.1.0/24
+2026-05-19 11:15:53,303 [WARNING] [VIOLATION] 192-168-1-1 (192.168.1.1) — Must start with a dept prefix (IT, HR, FIN, OPS, DEV, MKT); Must contain a device type (WS, LPT, SRV, PRN, MOB, CAM, IOT); Must end with -XXXX (4-digit ID)
+2026-05-19 11:15:53,316 [WARNING] [VIOLATION] 192-168-1-2 (192.168.1.2) — Must start with a dept prefix (IT, HR, FIN, OPS, DEV, MKT); Must contain a device type (WS, LPT, SRV, PRN, MOB, CAM, IOT); Must end with -XXXX (4-digit ID)
+2026-05-19 11:15:53,328 [WARNING] [VIOLATION] KARAN (192.168.1.21) — Must start with a dept prefix (IT, HR, FIN, OPS, DEV, MKT); Must contain a device type (WS, LPT, SRV, PRN, MOB, CAM, IOT); Must end with -XXXX (4-digit ID); Length must be between 10 and 20 characters
+2026-05-19 11:15:53,328 [INFO] Scan complete. Next scan in 30s.
+2026-05-19 11:16:02,897 [INFO] 127.0.0.1 - - [19/May/2026 11:16:02] "GET / HTTP/1.1" 200 -
+2026-05-19 11:16:03,034 [INFO] 127.0.0.1 - - [19/May/2026 11:16:03] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:16:03,514 [INFO] 127.0.0.1 - - [19/May/2026 11:16:03] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-05-19 11:16:08,005 [INFO] 127.0.0.1 - - [19/May/2026 11:16:08] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:16:12,997 [INFO] 127.0.0.1 - - [19/May/2026 11:16:12] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:16:17,997 [INFO] 127.0.0.1 - - [19/May/2026 11:16:17] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:16:23,003 [INFO] 127.0.0.1 - - [19/May/2026 11:16:23] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:16:23,343 [INFO] Scanning network with ARP: 192.168.1.0/24
+2026-05-19 11:16:28,000 [INFO] 127.0.0.1 - - [19/May/2026 11:16:28] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:16:32,995 [INFO] 127.0.0.1 - - [19/May/2026 11:16:32] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:16:37,997 [INFO] 127.0.0.1 - - [19/May/2026 11:16:37] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:16:38,238 [WARNING] [VIOLATION] 192-168-1-1 (192.168.1.1) — Must start with a dept prefix (IT, HR, FIN, OPS, DEV, MKT); Must contain a device type (WS, LPT, SRV, PRN, MOB, CAM, IOT); Must end with -XXXX (4-digit ID)
+2026-05-19 11:16:38,251 [WARNING] [VIOLATION] 192-168-1-2 (192.168.1.2) — Must start with a dept prefix (IT, HR, FIN, OPS, DEV, MKT); Must contain a device type (WS, LPT, SRV, PRN, MOB, CAM, IOT); Must end with -XXXX (4-digit ID)
+2026-05-19 11:16:38,265 [WARNING] [VIOLATION] KARAN (192.168.1.21) — Must start with a dept prefix (IT, HR, FIN, OPS, DEV, MKT); Must contain a device type (WS, LPT, SRV, PRN, MOB, CAM, IOT); Must end with -XXXX (4-digit ID); Length must be between 10 and 20 characters
+2026-05-19 11:16:38,265 [INFO] Scan complete. Next scan in 30s.
+2026-05-19 11:16:43,006 [INFO] 127.0.0.1 - - [19/May/2026 11:16:43] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:16:47,998 [INFO] 127.0.0.1 - - [19/May/2026 11:16:47] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:16:53,017 [INFO] 127.0.0.1 - - [19/May/2026 11:16:53] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:16:57,995 [INFO] 127.0.0.1 - - [19/May/2026 11:16:57] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:17:03,009 [INFO] 127.0.0.1 - - [19/May/2026 11:17:03] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:17:08,005 [INFO] 127.0.0.1 - - [19/May/2026 11:17:08] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:17:08,267 [INFO] Scanning network with ARP: 192.168.1.0/24
+2026-05-19 11:17:09,142 [INFO] 127.0.0.1 - - [19/May/2026 11:17:09] "POST /api/scan HTTP/1.1" 200 -
+2026-05-19 11:17:09,163 [INFO] 127.0.0.1 - - [19/May/2026 11:17:09] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:17:13,003 [INFO] 127.0.0.1 - - [19/May/2026 11:17:13] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:17:18,660 [INFO] 127.0.0.1 - - [19/May/2026 11:17:18] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:17:23,675 [INFO] 127.0.0.1 - - [19/May/2026 11:17:23] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:17:24,352 [WARNING] [VIOLATION] 192-168-1-1 (192.168.1.1) — Must start with a dept prefix (IT, HR, FIN, OPS, DEV, MKT); Must contain a device type (WS, LPT, SRV, PRN, MOB, CAM, IOT); Must end with -XXXX (4-digit ID)
+2026-05-19 11:17:24,369 [WARNING] [VIOLATION] 192-168-1-2 (192.168.1.2) — Must start with a dept prefix (IT, HR, FIN, OPS, DEV, MKT); Must contain a device type (WS, LPT, SRV, PRN, MOB, CAM, IOT); Must end with -XXXX (4-digit ID)
+2026-05-19 11:17:24,385 [WARNING] [VIOLATION] KARAN (192.168.1.21) — Must start with a dept prefix (IT, HR, FIN, OPS, DEV, MKT); Must contain a device type (WS, LPT, SRV, PRN, MOB, CAM, IOT); Must end with -XXXX (4-digit ID); Length must be between 10 and 20 characters
+2026-05-19 11:17:24,385 [INFO] Scan complete. Next scan in 30s.
+2026-05-19 11:17:28,665 [INFO] 127.0.0.1 - - [19/May/2026 11:17:28] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:17:33,719 [INFO] 127.0.0.1 - - [19/May/2026 11:17:33] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:17:38,673 [INFO] 127.0.0.1 - - [19/May/2026 11:17:38] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:17:43,664 [INFO] 127.0.0.1 - - [19/May/2026 11:17:43] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:17:48,665 [INFO] 127.0.0.1 - - [19/May/2026 11:17:48] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:17:53,671 [INFO] 127.0.0.1 - - [19/May/2026 11:17:53] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:17:54,394 [INFO] Scanning network with ARP: 192.168.1.0/24
+2026-05-19 11:17:58,656 [INFO] 127.0.0.1 - - [19/May/2026 11:17:58] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:18:03,674 [INFO] 127.0.0.1 - - [19/May/2026 11:18:03] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:18:08,672 [INFO] 127.0.0.1 - - [19/May/2026 11:18:08] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:18:09,806 [WARNING] [VIOLATION] 192-168-1-1 (192.168.1.1) — Must start with a dept prefix (IT, HR, FIN, OPS, DEV, MKT); Must contain a device type (WS, LPT, SRV, PRN, MOB, CAM, IOT); Must end with -XXXX (4-digit ID)
+2026-05-19 11:18:09,824 [WARNING] [VIOLATION] 192-168-1-2 (192.168.1.2) — Must start with a dept prefix (IT, HR, FIN, OPS, DEV, MKT); Must contain a device type (WS, LPT, SRV, PRN, MOB, CAM, IOT); Must end with -XXXX (4-digit ID)
+2026-05-19 11:18:09,841 [WARNING] [VIOLATION] KARAN (192.168.1.21) — Must start with a dept prefix (IT, HR, FIN, OPS, DEV, MKT); Must contain a device type (WS, LPT, SRV, PRN, MOB, CAM, IOT); Must end with -XXXX (4-digit ID); Length must be between 10 and 20 characters
+2026-05-19 11:18:09,842 [INFO] Scan complete. Next scan in 30s.
+2026-05-19 11:18:13,671 [INFO] 127.0.0.1 - - [19/May/2026 11:18:13] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:18:39,848 [INFO] Scanning network with ARP: 192.168.1.0/24
+2026-05-19 11:18:45,663 [INFO] 127.0.0.1 - - [19/May/2026 11:18:45] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:18:50,785 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\matplotlib\\backends\\__init__.py', reloading
+2026-05-19 11:18:51,197 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:18:52,111 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:18:52,212 [WARNING]  * Debugger is active!
+2026-05-19 11:18:52,251 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:18:52,446 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\matplotlib\\style\\__init__.py', reloading
+2026-05-19 11:18:52,545 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:18:53,618 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:18:53,678 [WARNING]  * Debugger is active!
+2026-05-19 11:18:53,692 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:18:53,944 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\pandas\\util\\_tester.py', reloading
+2026-05-19 11:18:53,961 [WARNING] [VIOLATION] 192-168-1-1 (192.168.1.1) — Must start with a dept prefix (IT, HR, FIN, OPS, DEV, MKT); Must contain a device type (WS, LPT, SRV, PRN, MOB, CAM, IOT); Must end with -XXXX (4-digit ID)
+2026-05-19 11:18:53,971 [WARNING] [VIOLATION] 192-168-1-2 (192.168.1.2) — Must start with a dept prefix (IT, HR, FIN, OPS, DEV, MKT); Must contain a device type (WS, LPT, SRV, PRN, MOB, CAM, IOT); Must end with -XXXX (4-digit ID)
+2026-05-19 11:18:53,981 [WARNING] [VIOLATION] KARAN (192.168.1.21) — Must start with a dept prefix (IT, HR, FIN, OPS, DEV, MKT); Must contain a device type (WS, LPT, SRV, PRN, MOB, CAM, IOT); Must end with -XXXX (4-digit ID); Length must be between 10 and 20 characters
+2026-05-19 11:18:53,982 [INFO] Scan complete. Next scan in 30s.
+2026-05-19 11:18:54,031 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:18:55,267 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:18:55,343 [WARNING]  * Debugger is active!
+2026-05-19 11:18:55,362 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:18:55,483 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\sklearn\\datasets\\_kddcup99.py', reloading
+2026-05-19 11:18:55,575 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:18:56,526 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:18:56,606 [WARNING]  * Debugger is active!
+2026-05-19 11:18:56,618 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:18:56,680 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\sklearn\\ensemble\\_forest.py', reloading
+2026-05-19 11:18:56,765 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:18:57,591 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:18:57,654 [WARNING]  * Debugger is active!
+2026-05-19 11:18:57,669 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:18:57,762 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\sklearn\\inspection\\_plot\\decision_boundary.py', reloading
+2026-05-19 11:18:57,864 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:18:59,236 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:18:59,331 [WARNING]  * Debugger is active!
+2026-05-19 11:18:59,349 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:18:59,452 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\sklearn\\metrics\\_plot\\det_curve.py', reloading
+2026-05-19 11:18:59,543 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:00,928 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:01,000 [WARNING]  * Debugger is active!
+2026-05-19 11:19:01,016 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:01,088 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\sklearn\\neighbors\\_base.py', reloading
+2026-05-19 11:19:01,168 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:01,959 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:02,018 [WARNING]  * Debugger is active!
+2026-05-19 11:19:02,030 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:02,092 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\sklearn\\svm\\_classes.py', reloading
+2026-05-19 11:19:02,162 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:02,894 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:02,955 [WARNING]  * Debugger is active!
+2026-05-19 11:19:02,971 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:03,756 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\sympy\\core\\intfunc.py', reloading
+2026-05-19 11:19:03,864 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:04,730 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:04,791 [WARNING]  * Debugger is active!
+2026-05-19 11:19:04,807 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:04,874 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\sympy\\printing\\smtlib.py', reloading
+2026-05-19 11:19:04,941 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:06,004 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:06,086 [WARNING]  * Debugger is active!
+2026-05-19 11:19:06,112 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:06,264 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\aiohttp\\multipart.py', reloading
+2026-05-19 11:19:06,385 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:07,643 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:07,721 [WARNING]  * Debugger is active!
+2026-05-19 11:19:07,737 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:07,839 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\altair\\utils\\data.py', reloading
+2026-05-19 11:19:07,969 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:09,242 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:09,768 [WARNING]  * Debugger is active!
+2026-05-19 11:19:09,792 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:09,943 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\charset_normalizer\\__init__.py', reloading
+2026-05-19 11:19:10,062 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:10,892 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:10,955 [WARNING]  * Debugger is active!
+2026-05-19 11:19:10,968 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:11,054 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\ecdsa\\__init__.py', reloading
+2026-05-19 11:19:11,131 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:11,792 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:11,842 [WARNING]  * Debugger is active!
+2026-05-19 11:19:11,855 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:11,923 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\starlette\\responses.py', reloading
+2026-05-19 11:19:11,984 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:12,512 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:12,561 [WARNING]  * Debugger is active!
+2026-05-19 11:19:12,570 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:12,647 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\filelock\\_windows.py', reloading
+2026-05-19 11:19:12,712 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:13,283 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:13,327 [WARNING]  * Debugger is active!
+2026-05-19 11:19:13,339 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:13,386 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\fsspec\\mapping.py', reloading
+2026-05-19 11:19:13,436 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:14,034 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:14,086 [WARNING]  * Debugger is active!
+2026-05-19 11:19:14,097 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:14,163 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\git\\diff.py', reloading
+2026-05-19 11:19:14,229 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:14,857 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:14,896 [WARNING]  * Debugger is active!
+2026-05-19 11:19:14,911 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:14,966 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\graphene\\relay\\connection.py', reloading
+2026-05-19 11:19:15,044 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:15,697 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:15,749 [WARNING]  * Debugger is active!
+2026-05-19 11:19:15,762 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:15,832 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\graphql\\error\\syntax_error.py', reloading
+2026-05-19 11:19:15,904 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:16,617 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:16,656 [WARNING]  * Debugger is active!
+2026-05-19 11:19:16,665 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:16,725 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\graphql\\utilities\\type_comparators.py', reloading
+2026-05-19 11:19:16,785 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:17,376 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:17,423 [WARNING]  * Debugger is active!
+2026-05-19 11:19:17,432 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:17,499 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\graphql\\validation\\rules\\unique_argument_names.py', reloading
+2026-05-19 11:19:17,555 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:18,203 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:18,249 [WARNING]  * Debugger is active!
+2026-05-19 11:19:18,259 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:18,332 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\graphql_relay\\mutation\\mutation.py', reloading
+2026-05-19 11:19:18,393 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:18,900 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:18,944 [WARNING]  * Debugger is active!
+2026-05-19 11:19:18,954 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:19,007 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\httpcore\\_backends\\mock.py', reloading
+2026-05-19 11:19:19,071 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:19,709 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:19,756 [WARNING]  * Debugger is active!
+2026-05-19 11:19:19,764 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:19,815 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\httpx\\_transports\\__init__.py', reloading
+2026-05-19 11:19:19,874 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:20,646 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:20,699 [WARNING]  * Debugger is active!
+2026-05-19 11:19:20,720 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:20,789 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\huggingface_hub\\constants.py', reloading
+2026-05-19 11:19:20,884 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:21,516 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:21,577 [WARNING]  * Debugger is active!
+2026-05-19 11:19:21,591 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:21,663 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\huggingface_hub\\inference\\_generated\\types\\chat_completion.py', reloading
+2026-05-19 11:19:21,749 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:22,480 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:22,531 [WARNING]  * Debugger is active!
+2026-05-19 11:19:22,539 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:22,597 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\huggingface_hub\\serialization\\_torch.py', reloading
+2026-05-19 11:19:22,667 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:23,507 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:23,554 [WARNING]  * Debugger is active!
+2026-05-19 11:19:23,569 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:23,642 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\jinja2\\runtime.py', reloading
+2026-05-19 11:19:23,717 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:23,999 [INFO] Scanning network with ARP: 192.168.1.0/24
+2026-05-19 11:19:24,342 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:24,404 [WARNING]  * Debugger is active!
+2026-05-19 11:19:24,423 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:24,583 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\matplotlib\\backends\\registry.py', reloading
+2026-05-19 11:19:24,659 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:25,507 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:25,564 [WARNING]  * Debugger is active!
+2026-05-19 11:19:25,584 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:25,893 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\matplotlib\\tests\\__init__.py', reloading
+2026-05-19 11:19:25,969 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:26,801 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:26,869 [WARNING]  * Debugger is active!
+2026-05-19 11:19:26,883 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:26,957 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\mlflow\\tracking\\_model_registry\\fluent.py', reloading
+2026-05-19 11:19:27,055 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:27,832 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:27,886 [WARNING]  * Debugger is active!
+2026-05-19 11:19:27,902 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:27,982 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\opentelemetry\\context\\__init__.py', reloading
+2026-05-19 11:19:28,059 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:28,592 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:28,649 [WARNING]  * Debugger is active!
+2026-05-19 11:19:28,665 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:28,736 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\platformdirs\\version.py', reloading
+2026-05-19 11:19:28,806 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:29,463 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:29,506 [WARNING]  * Debugger is active!
+2026-05-19 11:19:29,515 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:29,571 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\pydantic\\fields.py', reloading
+2026-05-19 11:19:29,639 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:30,184 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:30,222 [WARNING]  * Debugger is active!
+2026-05-19 11:19:30,228 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:30,287 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\pyparsing\\unicode.py', reloading
+2026-05-19 11:19:30,361 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:31,275 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:31,342 [WARNING]  * Debugger is active!
+2026-05-19 11:19:31,355 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:31,459 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\_pytest\\recwarn.py', reloading
+2026-05-19 11:19:31,543 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:32,664 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:32,771 [WARNING]  * Debugger is active!
+2026-05-19 11:19:32,793 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:33,337 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\scipy\\cluster\\__init__.py', reloading
+2026-05-19 11:19:33,430 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:34,584 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:34,655 [WARNING]  * Debugger is active!
+2026-05-19 11:19:34,669 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:34,834 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\scipy\\interpolate\\_fitpack2.py', reloading
+2026-05-19 11:19:34,951 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:35,817 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:35,877 [WARNING]  * Debugger is active!
+2026-05-19 11:19:35,889 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:35,967 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\scipy\\ndimage\\__init__.py', reloading
+2026-05-19 11:19:36,040 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:36,831 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:36,905 [WARNING]  * Debugger is active!
+2026-05-19 11:19:36,927 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:37,097 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\scipy\\signal\\_fir_filter_design.py', reloading
+2026-05-19 11:19:37,221 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:37,944 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:37,988 [WARNING]  * Debugger is active!
+2026-05-19 11:19:37,998 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:38,041 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\scipy\\special\\__init__.py', reloading
+2026-05-19 11:19:38,098 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:38,573 [WARNING] [VIOLATION] 192-168-1-1 (192.168.1.1) — Must start with a dept prefix (IT, HR, FIN, OPS, DEV, MKT); Must contain a device type (WS, LPT, SRV, PRN, MOB, CAM, IOT); Must end with -XXXX (4-digit ID)
+2026-05-19 11:19:38,581 [WARNING] [VIOLATION] 192-168-1-2 (192.168.1.2) — Must start with a dept prefix (IT, HR, FIN, OPS, DEV, MKT); Must contain a device type (WS, LPT, SRV, PRN, MOB, CAM, IOT); Must end with -XXXX (4-digit ID)
+2026-05-19 11:19:38,588 [WARNING] [VIOLATION] KARAN (192.168.1.21) — Must start with a dept prefix (IT, HR, FIN, OPS, DEV, MKT); Must contain a device type (WS, LPT, SRV, PRN, MOB, CAM, IOT); Must end with -XXXX (4-digit ID); Length must be between 10 and 20 characters
+2026-05-19 11:19:38,589 [INFO] Scan complete. Next scan in 30s.
+2026-05-19 11:19:38,616 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:38,661 [WARNING]  * Debugger is active!
+2026-05-19 11:19:38,674 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:38,725 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\scipy\\stats\\_binned_statistic.py', reloading
+2026-05-19 11:19:38,790 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:39,361 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:39,398 [WARNING]  * Debugger is active!
+2026-05-19 11:19:39,407 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:39,459 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\sqlalchemy\\engine\\cursor.py', reloading
+2026-05-19 11:19:39,519 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:40,097 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:40,138 [WARNING]  * Debugger is active!
+2026-05-19 11:19:40,146 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:40,231 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\sqlalchemy\\sql\\base.py', reloading
+2026-05-19 11:19:40,310 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:40,854 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:40,898 [WARNING]  * Debugger is active!
+2026-05-19 11:19:40,908 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:40,965 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\streamlit\\commands\\execution_control.py', reloading
+2026-05-19 11:19:41,019 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:41,904 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:41,971 [WARNING]  * Debugger is active!
+2026-05-19 11:19:41,987 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:42,061 [INFO] 127.0.0.1 - - [19/May/2026 11:19:42] "GET / HTTP/1.1" 200 -
+2026-05-19 11:19:42,121 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\torch\\functional.py', reloading
+2026-05-19 11:19:42,230 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:43,107 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:43,158 [WARNING]  * Debugger is active!
+2026-05-19 11:19:43,171 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:43,225 [INFO] 127.0.0.1 - - [19/May/2026 11:19:43] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-05-19 11:19:43,230 [INFO] 127.0.0.1 - - [19/May/2026 11:19:43] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:19:44,110 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\__init__.py', reloading
+2026-05-19 11:19:44,192 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:45,037 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:45,103 [WARNING]  * Debugger is active!
+2026-05-19 11:19:45,114 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:45,404 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\afmoe\\__init__.py', reloading
+2026-05-19 11:19:45,483 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:46,330 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:46,396 [WARNING]  * Debugger is active!
+2026-05-19 11:19:46,411 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:46,474 [INFO] 127.0.0.1 - - [19/May/2026 11:19:46] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:19:46,512 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\audio_spectrogram_transformer\\configuration_audio_spectrogram_transformer.py', reloading
+2026-05-19 11:19:46,588 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:47,397 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:47,457 [WARNING]  * Debugger is active!
+2026-05-19 11:19:47,472 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:47,537 [INFO] 127.0.0.1 - - [19/May/2026 11:19:47] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:19:47,556 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\bark\\__init__.py', reloading
+2026-05-19 11:19:47,656 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:48,505 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:48,579 [WARNING]  * Debugger is active!
+2026-05-19 11:19:48,591 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:48,690 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\bert_japanese\\__init__.py', reloading
+2026-05-19 11:19:48,823 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:49,553 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:49,616 [WARNING]  * Debugger is active!
+2026-05-19 11:19:49,633 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:49,716 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\blenderbot\\modeling_blenderbot.py', reloading
+2026-05-19 11:19:49,801 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:50,538 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:50,599 [WARNING]  * Debugger is active!
+2026-05-19 11:19:50,611 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:50,706 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\blt\\modeling_blt.py', reloading
+2026-05-19 11:19:50,782 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:51,521 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:51,572 [WARNING]  * Debugger is active!
+2026-05-19 11:19:51,580 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:51,649 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\chameleon\\modeling_chameleon.py', reloading
+2026-05-19 11:19:51,711 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:52,310 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:52,351 [WARNING]  * Debugger is active!
+2026-05-19 11:19:52,360 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:52,440 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\clvp\\modeling_clvp.py', reloading
+2026-05-19 11:19:52,500 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:53,077 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:53,123 [WARNING]  * Debugger is active!
+2026-05-19 11:19:53,134 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:53,185 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\colmodernvbert\\processing_colmodernvbert.py', reloading
+2026-05-19 11:19:53,252 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:53,956 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:54,006 [WARNING]  * Debugger is active!
+2026-05-19 11:19:54,018 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:54,116 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\cpmant\\modeling_cpmant.py', reloading
+2026-05-19 11:19:54,188 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:54,846 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:54,908 [WARNING]  * Debugger is active!
+2026-05-19 11:19:54,921 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:55,010 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\dac\\feature_extraction_dac.py', reloading
+2026-05-19 11:19:55,090 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:55,706 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:55,744 [WARNING]  * Debugger is active!
+2026-05-19 11:19:55,754 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:55,824 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\deepseek_v2\\__init__.py', reloading
+2026-05-19 11:19:55,879 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:56,484 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:56,535 [WARNING]  * Debugger is active!
+2026-05-19 11:19:56,552 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:56,617 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\deformable_detr\\modeling_deformable_detr.py', reloading
+2026-05-19 11:19:56,677 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:57,286 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:57,342 [WARNING]  * Debugger is active!
+2026-05-19 11:19:57,356 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:57,451 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\dia\\modeling_dia.py', reloading
+2026-05-19 11:19:57,521 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:58,185 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:58,226 [WARNING]  * Debugger is active!
+2026-05-19 11:19:58,236 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:58,286 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\doge\\__init__.py', reloading
+2026-05-19 11:19:58,288 [INFO] 127.0.0.1 - - [19/May/2026 11:19:58] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:19:58,417 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:19:59,185 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:19:59,243 [WARNING]  * Debugger is active!
+2026-05-19 11:19:59,259 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:19:59,348 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\edgetam\\modeling_edgetam.py', reloading
+2026-05-19 11:19:59,421 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:20:00,179 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:20:00,238 [WARNING]  * Debugger is active!
+2026-05-19 11:20:00,255 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:20:00,326 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\encodec\\feature_extraction_encodec.py', reloading
+2026-05-19 11:20:00,398 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:20:01,187 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:20:01,266 [WARNING]  * Debugger is active!
+2026-05-19 11:20:01,282 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:20:01,369 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\ernie4_5_vl_moe\\video_processing_ernie4_5_vl_moe.py', reloading
+2026-05-19 11:20:01,444 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:20:02,312 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:20:02,374 [WARNING]  * Debugger is active!
+2026-05-19 11:20:02,391 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:20:02,469 [INFO] 127.0.0.1 - - [19/May/2026 11:20:02] "GET /api/status HTTP/1.1" 200 -
+2026-05-19 11:20:02,472 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\fast_vlm\\modeling_fast_vlm.py', reloading
+2026-05-19 11:20:02,599 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:20:03,366 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:20:03,418 [WARNING]  * Debugger is active!
+2026-05-19 11:20:03,427 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:20:03,502 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\focalnet\\configuration_focalnet.py', reloading
+2026-05-19 11:20:03,559 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:20:04,297 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:20:04,345 [WARNING]  * Debugger is active!
+2026-05-19 11:20:04,356 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:20:04,426 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\gemma3\\image_processing_gemma3_fast.py', reloading
+2026-05-19 11:20:04,484 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:20:05,282 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:20:05,389 [WARNING]  * Debugger is active!
+2026-05-19 11:20:05,404 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:20:05,598 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\glm4v\\processing_glm4v.py', reloading
+2026-05-19 11:20:05,661 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:20:06,297 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:20:06,337 [WARNING]  * Debugger is active!
+2026-05-19 11:20:06,346 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:20:06,422 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\glpn\\image_processing_glpn.py', reloading
+2026-05-19 11:20:06,481 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:20:07,112 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:20:07,153 [WARNING]  * Debugger is active!
+2026-05-19 11:20:07,163 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:20:07,213 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\gpt_oss\\configuration_gpt_oss.py', reloading
+2026-05-19 11:20:07,291 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:20:08,035 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:20:08,098 [WARNING]  * Debugger is active!
+2026-05-19 11:20:08,111 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:20:08,212 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\grounding_dino\\modeling_grounding_dino.py', reloading
+2026-05-19 11:20:08,291 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:20:08,600 [INFO] Scanning network with ARP: 192.168.1.0/24
+2026-05-19 11:20:09,393 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:20:09,461 [WARNING]  * Debugger is active!
+2026-05-19 11:20:09,472 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:20:09,540 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\hunyuan_v1_moe\\__init__.py', reloading
+2026-05-19 11:20:09,650 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:20:10,767 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:20:10,841 [WARNING]  * Debugger is active!
+2026-05-19 11:20:10,866 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:20:10,937 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\imagegpt\\image_processing_imagegpt_fast.py', reloading
+2026-05-19 11:20:11,047 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:20:12,339 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:20:12,427 [WARNING]  * Debugger is active!
+2026-05-19 11:20:12,444 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:20:12,527 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\jetmoe\\__init__.py', reloading
+2026-05-19 11:20:12,645 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:20:13,927 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:20:13,973 [WARNING]  * Debugger is active!
+2026-05-19 11:20:13,985 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:20:14,029 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\layoutlmv2\\__init__.py', reloading
+2026-05-19 11:20:14,084 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:20:14,628 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:20:14,669 [WARNING]  * Debugger is active!
+2026-05-19 11:20:14,683 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:20:14,752 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\levit\\image_processing_levit_fast.py', reloading
+2026-05-19 11:20:14,808 [INFO]  * Restarting with watchdog (windowsapi)
+2026-05-19 11:20:15,535 [INFO] Database initialised at logs/devices.db
+2026-05-19 11:20:15,603 [WARNING]  * Debugger is active!
+2026-05-19 11:20:15,617 [INFO]  * Debugger PIN: 835-178-995
+2026-05-19 11:20:15,698 [INFO]  * Detected change in 'C:\\Users\\kashy\\AppData\\Local\\Programs\\Python\\Python310\\Lib\\site-packages\\transformers\\models\\llama4\\image_processing_llama4_fast.py', reloading
+2026-05-19 11:20:15,786 [INFO]  * Restarting with watchdog (windowsapi)

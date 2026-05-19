@@ -1,0 +1,60 @@
+#
+# TLS Configuration for EAP-TLS
+#
+
+tls {
+    # Certificate authority
+    ca_file = ${confdir}/certs/ca.pem
+    
+    # Server certificate
+    certificate_file = ${confdir}/certs/server.pem
+    
+    # Server private key
+    private_key_file = ${confdir}/certs/server.key
+    
+    # DH parameters
+    dh_file = ${confdir}/certs/dh.pem
+    
+    # Random file
+    random_file = /dev/urandom
+    
+    # Cipher list
+    cipher_list = "HIGH"
+    
+    # EAP-TLS specific
+    eap_fast {
+        # Enable EAP-FAST
+        pac_lifetime = 604800
+        pac_key_refresh = 86400
+    }
+    
+    # Certificate verification
+    verify_client = yes
+    verify_client_cert = require
+    
+    # Certificate requirements
+    require_client_cert = yes
+    
+    # CRL checking
+    check_crl = yes
+    crl_file = ${confdir}/certs/crl.pem
+    
+    # OCSP checking
+    check_ocsp = no
+    ocsp_url = http://ocsp.example.com
+    
+    # TLS version
+    tls_min_version = "1.2"
+    tls_max_version = "1.3"
+    
+    # Fragmentation
+    fragment_size = 1024
+    include_length = yes
+    
+    # Cache
+    cache {
+        enable = no
+        lifetime = 24
+        max_entries = 255
+    }
+}

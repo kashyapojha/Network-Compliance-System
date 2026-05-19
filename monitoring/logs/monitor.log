@@ -1,0 +1,77 @@
+2026-05-19 22:32:08,005 [INFO] Starting Network Monitoring Service
+2026-05-19 22:32:08,005 [INFO] Network Range: 192.168.1.0/24
+2026-05-19 22:32:08,005 [INFO] Poll Interval: 30s
+2026-05-19 22:32:10,380 [INFO] Monitoring started successfully via API
+2026-05-19 22:34:36,612 [INFO] Starting Network Monitoring Service
+2026-05-19 22:34:36,613 [INFO] Network Range: 192.168.1.0/24
+2026-05-19 22:34:36,613 [INFO] Poll Interval: 30s
+2026-05-19 22:34:38,675 [INFO] Monitoring started successfully via API
+2026-05-19 22:39:32,891 [INFO] Starting Network Monitoring Service
+2026-05-19 22:39:32,891 [INFO] Network Range: 192.168.1.0/24
+2026-05-19 22:39:32,891 [INFO] Poll Interval: 30s
+2026-05-19 22:39:36,980 [WARNING] Backend not available, starting monitoring directly
+2026-05-19 22:39:36,981 [INFO] Starting network monitoring on 192.168.1.0/24
+2026-05-19 22:39:36,981 [INFO] Scanning network: 192.168.1.0/24
+2026-05-19 22:39:57,135 [INFO] Detected 4 devices
+2026-05-19 22:39:57,185 [ERROR] Monitoring error: (sqlite3.OperationalError) no such table: devices
+[SQL: SELECT devices.id AS devices_id, devices.hostname AS devices_hostname, devices.mac_address AS devices_mac_address, devices.ip_address AS devices_ip_address, devices.device_type AS devices_device_type, devices.department AS devices_department, devices.os_fingerprint AS devices_os_fingerprint, devices.vendor AS devices_vendor, devices.trust_score AS devices_trust_score, devices.is_authorized AS devices_is_authorized, devices.is_quarantined AS devices_is_quarantined, devices.vlan_assignment AS devices_vlan_assignment, devices.first_seen AS devices_first_seen, devices.last_seen AS devices_last_seen, devices.created_at AS devices_created_at, devices.updated_at AS devices_updated_at 
+FROM devices 
+WHERE devices.mac_address = ?
+ LIMIT ? OFFSET ?]
+[parameters: ('a8:e2:07:86:02:09', 1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-05-19 22:40:02,187 [INFO] Scanning network: 192.168.1.0/24
+2026-05-19 22:40:17,828 [INFO] Detected 3 devices
+2026-05-19 22:40:17,832 [ERROR] Monitoring error: (sqlite3.OperationalError) no such table: devices
+[SQL: SELECT devices.id AS devices_id, devices.hostname AS devices_hostname, devices.mac_address AS devices_mac_address, devices.ip_address AS devices_ip_address, devices.device_type AS devices_device_type, devices.department AS devices_department, devices.os_fingerprint AS devices_os_fingerprint, devices.vendor AS devices_vendor, devices.trust_score AS devices_trust_score, devices.is_authorized AS devices_is_authorized, devices.is_quarantined AS devices_is_quarantined, devices.vlan_assignment AS devices_vlan_assignment, devices.first_seen AS devices_first_seen, devices.last_seen AS devices_last_seen, devices.created_at AS devices_created_at, devices.updated_at AS devices_updated_at 
+FROM devices 
+WHERE devices.mac_address = ?
+ LIMIT ? OFFSET ?]
+[parameters: ('a8:e2:07:86:02:09', 1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-05-19 22:40:22,835 [INFO] Scanning network: 192.168.1.0/24
+2026-05-19 22:40:37,141 [INFO] Detected 3 devices
+2026-05-19 22:40:37,144 [ERROR] Monitoring error: (sqlite3.OperationalError) no such table: devices
+[SQL: SELECT devices.id AS devices_id, devices.hostname AS devices_hostname, devices.mac_address AS devices_mac_address, devices.ip_address AS devices_ip_address, devices.device_type AS devices_device_type, devices.department AS devices_department, devices.os_fingerprint AS devices_os_fingerprint, devices.vendor AS devices_vendor, devices.trust_score AS devices_trust_score, devices.is_authorized AS devices_is_authorized, devices.is_quarantined AS devices_is_quarantined, devices.vlan_assignment AS devices_vlan_assignment, devices.first_seen AS devices_first_seen, devices.last_seen AS devices_last_seen, devices.created_at AS devices_created_at, devices.updated_at AS devices_updated_at 
+FROM devices 
+WHERE devices.mac_address = ?
+ LIMIT ? OFFSET ?]
+[parameters: ('a8:e2:07:86:02:09', 1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-05-19 22:40:42,146 [INFO] Scanning network: 192.168.1.0/24
+2026-05-19 22:40:57,461 [INFO] Detected 3 devices
+2026-05-19 22:40:57,466 [ERROR] Monitoring error: (sqlite3.OperationalError) no such table: devices
+[SQL: SELECT devices.id AS devices_id, devices.hostname AS devices_hostname, devices.mac_address AS devices_mac_address, devices.ip_address AS devices_ip_address, devices.device_type AS devices_device_type, devices.department AS devices_department, devices.os_fingerprint AS devices_os_fingerprint, devices.vendor AS devices_vendor, devices.trust_score AS devices_trust_score, devices.is_authorized AS devices_is_authorized, devices.is_quarantined AS devices_is_quarantined, devices.vlan_assignment AS devices_vlan_assignment, devices.first_seen AS devices_first_seen, devices.last_seen AS devices_last_seen, devices.created_at AS devices_created_at, devices.updated_at AS devices_updated_at 
+FROM devices 
+WHERE devices.mac_address = ?
+ LIMIT ? OFFSET ?]
+[parameters: ('a8:e2:07:86:02:09', 1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-05-19 22:41:02,480 [INFO] Scanning network: 192.168.1.0/24
+2026-05-19 22:41:17,638 [INFO] Detected 3 devices
+2026-05-19 22:41:17,646 [ERROR] Monitoring error: (sqlite3.OperationalError) no such table: devices
+[SQL: SELECT devices.id AS devices_id, devices.hostname AS devices_hostname, devices.mac_address AS devices_mac_address, devices.ip_address AS devices_ip_address, devices.device_type AS devices_device_type, devices.department AS devices_department, devices.os_fingerprint AS devices_os_fingerprint, devices.vendor AS devices_vendor, devices.trust_score AS devices_trust_score, devices.is_authorized AS devices_is_authorized, devices.is_quarantined AS devices_is_quarantined, devices.vlan_assignment AS devices_vlan_assignment, devices.first_seen AS devices_first_seen, devices.last_seen AS devices_last_seen, devices.created_at AS devices_created_at, devices.updated_at AS devices_updated_at 
+FROM devices 
+WHERE devices.mac_address = ?
+ LIMIT ? OFFSET ?]
+[parameters: ('a8:e2:07:86:02:09', 1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-05-19 22:41:22,650 [INFO] Scanning network: 192.168.1.0/24
+2026-05-19 22:41:37,729 [INFO] Detected 3 devices
+2026-05-19 22:41:37,740 [ERROR] Monitoring error: (sqlite3.OperationalError) no such table: devices
+[SQL: SELECT devices.id AS devices_id, devices.hostname AS devices_hostname, devices.mac_address AS devices_mac_address, devices.ip_address AS devices_ip_address, devices.device_type AS devices_device_type, devices.department AS devices_department, devices.os_fingerprint AS devices_os_fingerprint, devices.vendor AS devices_vendor, devices.trust_score AS devices_trust_score, devices.is_authorized AS devices_is_authorized, devices.is_quarantined AS devices_is_quarantined, devices.vlan_assignment AS devices_vlan_assignment, devices.first_seen AS devices_first_seen, devices.last_seen AS devices_last_seen, devices.created_at AS devices_created_at, devices.updated_at AS devices_updated_at 
+FROM devices 
+WHERE devices.mac_address = ?
+ LIMIT ? OFFSET ?]
+[parameters: ('a8:e2:07:86:02:09', 1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-05-19 22:41:42,759 [INFO] Scanning network: 192.168.1.0/24
+2026-05-19 22:41:58,625 [INFO] Detected 3 devices
+2026-05-19 22:41:58,642 [ERROR] Monitoring error: (sqlite3.OperationalError) no such table: devices
+[SQL: SELECT devices.id AS devices_id, devices.hostname AS devices_hostname, devices.mac_address AS devices_mac_address, devices.ip_address AS devices_ip_address, devices.device_type AS devices_device_type, devices.department AS devices_department, devices.os_fingerprint AS devices_os_fingerprint, devices.vendor AS devices_vendor, devices.trust_score AS devices_trust_score, devices.is_authorized AS devices_is_authorized, devices.is_quarantined AS devices_is_quarantined, devices.vlan_assignment AS devices_vlan_assignment, devices.first_seen AS devices_first_seen, devices.last_seen AS devices_last_seen, devices.created_at AS devices_created_at, devices.updated_at AS devices_updated_at 
+FROM devices 
+WHERE devices.mac_address = ?
+ LIMIT ? OFFSET ?]
+[parameters: ('a8:e2:07:86:02:09', 1, 0)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-05-19 22:42:03,662 [INFO] Scanning network: 192.168.1.0/24

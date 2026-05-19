@@ -1,0 +1,107 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: network-compliance-db
+    environment:
+      POSTGRES_DB: network_compliance
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - network-compliance
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Flask Backend API
+  backend:
+    build:
+      context: ../backend
+      dockerfile: ../docker/Dockerfile.backend
+    container_name: network-compliance-backend
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/network_compliance
+      SECRET_KEY: ${SECRET_KEY:-dev-secret-key}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-jwt-secret-key}
+      DEBUG: ${DEBUG:-False}
+      PORT: 5000
+    ports:
+      - "5000:5000"
+    volumes:
+      - ../backend:/app
+      - ../certificates:/app/certificates
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - network-compliance
+    command: python main.py
+
+  # React Frontend
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: ../docker/Dockerfile.frontend
+    container_name: network-compliance-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - network-compliance
+
+  # FreeRADIUS Server
+  freeradius:
+    image: freeradius/freeradius-server:3.2-alpine
+    container_name: network-compliance-freeradius
+    ports:
+      - "1812:1812/udp"
+      - "1813:1813/udp"
+    volumes:
+      - ../freeradius/config:/etc/raddb
+      - ../certificates:/etc/raddb/certs
+    depends_on:
+      - postgres
+    networks:
+      - network-compliance
+    command: freeradius -f -X
+
+  # Network Monitoring Service
+  monitoring:
+    build:
+      context: ../monitoring
+      dockerfile: ../docker/Dockerfile.monitoring
+    container_name: network-compliance-monitoring
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/network_compliance
+      NETWORK_RANGE: ${NETWORK_RANGE:-192.168.1.0/24}
+      POLL_INTERVAL: ${POLL_INTERVAL:-30}
+    volumes:
+      - ../monitoring:/app
+      - ../monitoring/logs:/app/logs
+      - /lib/modules:/lib/modules:ro
+      - /usr/src/linux:/usr/src/linux:ro
+    network_mode: host
+    depends_on:
+      - postgres
+      - backend
+    privileged: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+
+volumes:
+  postgres_data:
+
+networks:
+  network-compliance:
+    driver: bridge
