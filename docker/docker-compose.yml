@@ -1,39 +1,47 @@
+# Run from repository root so variables interpolate from the same .env as the app:
+#   docker compose --env-file .env -f docker/docker-compose.yml up -d
+#
 version: '3.8'
 
 services:
-  # PostgreSQL Database
   postgres:
     image: postgres:15-alpine
     container_name: network-compliance-db
+    env_file:
+      - ../.env
     environment:
-      POSTGRES_DB: network_compliance
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ../database/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - network-compliance
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  # Flask Backend API
   backend:
     build:
       context: ../backend
       dockerfile: ../docker/Dockerfile.backend
     container_name: network-compliance-backend
+    env_file:
+      - ../.env
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/network_compliance
-      SECRET_KEY: ${SECRET_KEY:-dev-secret-key}
-      JWT_SECRET_KEY: ${JWT_SECRET_KEY:-jwt-secret-key}
+      DATABASE_URL: ${DATABASE_URL}
+      SECRET_KEY: ${SECRET_KEY}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
       DEBUG: ${DEBUG:-False}
       PORT: 5000
+      CORS_ORIGINS: ${CORS_ORIGINS}
+      SOCKETIO_CORS_ORIGINS: ${SOCKETIO_CORS_ORIGINS}
+      CERTIFICATES_DIR: /app/certificates
     ports:
       - "5000:5000"
     volumes:
@@ -46,7 +54,6 @@ services:
       - network-compliance
     command: python main.py
 
-  # React Frontend
   frontend:
     build:
       context: ../frontend
@@ -59,7 +66,6 @@ services:
     networks:
       - network-compliance
 
-  # FreeRADIUS Server
   freeradius:
     image: freeradius/freeradius-server:3.2-alpine
     container_name: network-compliance-freeradius
@@ -75,21 +81,21 @@ services:
       - network-compliance
     command: freeradius -f -X
 
-  # Network Monitoring Service
   monitoring:
     build:
       context: ../monitoring
       dockerfile: ../docker/Dockerfile.monitoring
     container_name: network-compliance-monitoring
+    env_file:
+      - ../.env
     environment:
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/network_compliance
-      NETWORK_RANGE: ${NETWORK_RANGE:-192.168.1.0/24}
-      POLL_INTERVAL: ${POLL_INTERVAL:-30}
+      DATABASE_URL: ${DATABASE_URL}
+      NETWORK_RANGE: ${NETWORK_RANGE}
+      POLL_INTERVAL: ${POLL_INTERVAL}
+      BACKEND_URL: ${BACKEND_URL:-http://backend:5000}
     volumes:
       - ../monitoring:/app
       - ../monitoring/logs:/app/logs
-      - /lib/modules:/lib/modules:ro
-      - /usr/src/linux:/usr/src/linux:ro
     network_mode: host
     depends_on:
       - postgres

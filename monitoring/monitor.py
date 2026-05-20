@@ -6,22 +6,35 @@ Runs continuous network scanning and compliance checking
 
 import os
 import sys
-import time
 import logging
-from datetime import datetime
 import requests
+from dotenv import load_dotenv
 
-# Add project root to path for imports
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+# Resolve paths: backend code uses `from app...` (same as backend/main.py)
+MONITOR_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.join(MONITOR_DIR, '..'))
+BACKEND_DIR = os.path.join(PROJECT_ROOT, 'backend')
 
-from backend.app.services.monitoring_service import MonitoringService
+load_dotenv(os.path.join(PROJECT_ROOT, '.env'))
+
+if BACKEND_DIR not in sys.path:
+    sys.path.insert(0, BACKEND_DIR)
+
+# SQLite DB path is relative to the backend working directory
+os.chdir(BACKEND_DIR)
+
+from app.services.monitoring_service import MonitoringService
+
+# Ensure log directory exists
+LOG_DIR = os.path.join(MONITOR_DIR, 'logs')
+os.makedirs(LOG_DIR, exist_ok=True)
 
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s [%(levelname)s] %(message)s',
     handlers=[
-        logging.FileHandler('logs/monitor.log'),
+        logging.FileHandler(os.path.join(LOG_DIR, 'monitor.log')),
         logging.StreamHandler()
     ]
 )
@@ -43,7 +56,8 @@ def main():
     
     # Start monitoring via API
     try:
-        response = requests.post('http://localhost:5000/api/monitoring/start')
+        backend_url = os.getenv('BACKEND_URL', 'http://localhost:5000').rstrip('/')
+        response = requests.post(f'{backend_url}/api/monitoring/start')
         if response.status_code == 200:
             log.info("Monitoring started successfully via API")
         else:

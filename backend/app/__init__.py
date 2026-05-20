@@ -1,23 +1,25 @@
 from flask import Flask
 from flask_cors import CORS
+from flask_jwt_extended import JWTManager
 from flask_socketio import SocketIO
 from .database import init_db
-import os
+from .config import Config
 
 def create_app():
     """Application factory pattern."""
     app = Flask(__name__)
-    
-    # Configuration
-    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
-    app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', 'jwt-secret-key-change-in-production')
-    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = 3600  # 1 hour
-    
-    # Enable CORS
-    CORS(app)
-    
-    # Initialize SocketIO for WebSocket support
-    socketio = SocketIO(app, cors_allowed_origins="*")
+
+    app.config['SECRET_KEY'] = Config.SECRET_KEY
+    app.config['JWT_SECRET_KEY'] = Config.JWT_SECRET_KEY
+    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = Config.JWT_ACCESS_TOKEN_EXPIRES
+
+    cors_origins = [o.strip() for o in Config.CORS_ORIGINS.split(',') if o.strip()]
+    CORS(app, origins=cors_origins, supports_credentials=True)
+
+    jwt = JWTManager(app)
+
+    socket_origins = [o.strip() for o in Config.SOCKETIO_CORS_ORIGINS.split(',') if o.strip()]
+    socketio = SocketIO(app, cors_allowed_origins=socket_origins or '*')
     
     # Initialize database
     init_db()

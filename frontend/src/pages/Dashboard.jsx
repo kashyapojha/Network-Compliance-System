@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 import { 
   Monitor, 
   Shield, 
@@ -13,12 +14,26 @@ import {
 const Dashboard = () => {
   const [metrics, setMetrics] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [actionMessage, setActionMessage] = useState('')
+  const [networkInfo, setNetworkInfo] = useState(null)
+  const [scanning, setScanning] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetchMetrics()
-    const interval = setInterval(fetchMetrics, 30000) // Refresh every 30s
+    fetchNetworkInfo()
+    const interval = setInterval(fetchMetrics, 30000)
     return () => clearInterval(interval)
   }, [])
+
+  const fetchNetworkInfo = async () => {
+    try {
+      const response = await axios.get('/api/monitoring/network-info')
+      setNetworkInfo(response.data)
+    } catch (error) {
+      console.error('Failed to fetch network info:', error)
+    }
+  }
 
   const fetchMetrics = async () => {
     try {
@@ -29,6 +44,41 @@ const Dashboard = () => {
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleScanNetwork = async () => {
+    setScanning(true)
+    setActionMessage('')
+    try {
+      const response = await axios.post('/api/monitoring/scan', {
+        network_range: networkInfo?.network_range
+      })
+      await fetchMetrics()
+      const { devices_found, alerts_created, network_range } = response.data
+      setActionMessage(
+        `Scan complete on ${network_range}: ${devices_found} device(s) found, ${alerts_created} new alert(s). Check Alerts page.`
+      )
+    } catch (error) {
+      console.error('Failed to scan network:', error)
+      setActionMessage(error.response?.data?.error || 'Network scan failed. Is the backend running as Administrator?')
+    } finally {
+      setScanning(false)
+    }
+  }
+
+  const handleGenerateReport = async () => {
+    try {
+      await axios.post('/api/compliance/report', { type: 'full' })
+      setActionMessage('Compliance report generated')
+      navigate('/compliance')
+    } catch (error) {
+      console.error('Failed to generate report:', error)
+      setActionMessage('Failed to generate report')
+    }
+  }
+
+  const handleViewAlerts = () => {
+    navigate('/alerts')
   }
 
   if (loading) {
@@ -133,13 +183,46 @@ const Dashboard = () => {
         </div>
       </div>
 
+      {/* Network info */}
+      {networkInfo && (
+        <div className="card">
+          <h2 className="text-xl font-bold text-white mb-3">Detected Network (this server)</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+            <div>
+              <p className="text-gray-400">Your IP</p>
+              <p className="text-white font-mono">{networkInfo.ip_address}</p>
+            </div>
+            <div>
+              <p className="text-gray-400">Your MAC</p>
+              <p className="text-white font-mono">{networkInfo.mac_address || 'N/A'}</p>
+            </div>
+            <div>
+              <p className="text-gray-400">Hostname</p>
+              <p className="text-white">{networkInfo.hostname}</p>
+            </div>
+            <div>
+              <p className="text-gray-400">Scan range</p>
+              <p className="text-white font-mono">{networkInfo.network_range}</p>
+            </div>
+          </div>
+          <p className="text-gray-500 text-xs mt-3">
+            Scans run on the machine where the backend runs. Unregistered devices on this network trigger alerts.
+          </p>
+        </div>
+      )}
+
       {/* Quick Actions */}
       <div className="card">
         <h2 className="text-xl font-bold text-white mb-4">Quick Actions</h2>
+        {actionMessage && (
+          <p className="text-sm text-primary-400 mb-4">{actionMessage}</p>
+        )}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <button className="btn btn-primary">Start Network Scan</button>
-          <button className="btn btn-primary">Generate Compliance Report</button>
-          <button className="btn btn-primary">View All Alerts</button>
+          <button onClick={handleScanNetwork} disabled={scanning} className="btn btn-primary">
+            {scanning ? 'Scanning...' : 'Start Network Scan'}
+          </button>
+          <button onClick={handleGenerateReport} className="btn btn-primary">Generate Compliance Report</button>
+          <button onClick={handleViewAlerts} className="btn btn-primary">View All Alerts</button>
         </div>
       </div>
     </div>

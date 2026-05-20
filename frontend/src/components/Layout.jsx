@@ -17,10 +17,6 @@ const Layout = () => {
   const location = useLocation()
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
-  if (!user) {
-    return null
-  }
-
   const navItems = [
     { path: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
     { path: '/devices', icon: Monitor, label: 'Devices' },

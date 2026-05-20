@@ -11,6 +11,8 @@ from ..database import get_db
 from ..models.device import Device
 from ..models.alert import Alert, AlertSeverity, AlertType
 from ..services.fingerprinting_service import FingerprintingService
+from ..utils.network_utils import get_network_cidr, normalize_mac
+import os
 
 log = logging.getLogger(__name__)
 
@@ -18,8 +20,12 @@ log = logging.getLogger(__name__)
 class MonitoringService:
     """Network monitoring service for compliance checking."""
     
-    def __init__(self, network_range="192.168.1.0/24", poll_interval=30):
-        self.network_range = network_range
+    def __init__(self, network_range=None, poll_interval=30):
+        self.network_range = (
+            network_range
+            or os.getenv('NETWORK_RANGE')
+            or get_network_cidr()
+        )
         self.poll_interval = poll_interval
         self.is_running = False
         self.detected_devices = []
@@ -70,7 +76,7 @@ class MonitoringService:
                 devices.append({
                     'hostname': hostname,
                     'ip_address': ip,
-                    'mac_address': mac,
+                    'mac_address': normalize_mac(mac),
                     'vendor': fingerprint.get('vendor', 'Unknown'),
                     'os': fingerprint.get('os', 'Unknown'),
                     'detected_at': datetime.utcnow().isoformat()
@@ -88,19 +94,24 @@ class MonitoringService:
             return []
     
     def scan_and_check(self):
-        """Scan network and check compliance."""
+        """Scan network and check compliance. Returns list of detected devices."""
         devices = self.scan_network()
         db: Session = next(get_db())
         
         try:
             for dev in devices:
                 self._check_device_compliance(db, dev)
+            db.commit()
+        except Exception:
+            db.rollback()
+            raise
         finally:
             db.close()
+        return devices
     
     def _check_device_compliance(self, db, device_data):
         """Check if a device is compliant with network policies."""
-        mac = device_data['mac_address']
+        mac = normalize_mac(device_data['mac_address'])
         ip = device_data['ip_address']
         hostname = device_data['hostname']
         
@@ -121,10 +132,11 @@ class MonitoringService:
                 mac
             )
             return
-        
-        # Update last seen
+
+        # Update last seen and trust score
         existing_device.last_seen = datetime.utcnow()
         existing_device.ip_address = ip
+        self._update_trust_score(existing_device)
         
         # Check for hostname change
         if existing_device.hostname != hostname:
@@ -182,14 +194,39 @@ class MonitoringService:
                 f"Unauthorized device on network",
                 f"Device {hostname} is not authorized",
                 ip,
-                mac
+                mac,
+                device_id=existing_device.id
             )
-        
-        db.commit()
+            self._update_trust_score(existing_device)
+
+    def _update_trust_score(self, device):
+        """Recalculate trust score from authorization and device profile."""
+        score = self.fingerprinting.calculate_trust_score(device)
+
+        if device.is_quarantined:
+            score = min(score, 10)
+        elif not device.is_authorized:
+            score = min(score, 45)
+        elif device.certificates:
+            active = [c for c in device.certificates if not c.is_revoked]
+            if active:
+                score = max(score, 85)
+
+        device.trust_score = round(max(0, min(100, score)), 1)
     
-    def _create_alert(self, db, alert_type, severity, title, description, ip, mac):
-        """Create an alert in the database."""
+    def _create_alert(self, db, alert_type, severity, title, description, ip, mac, device_id=None):
+        """Create an alert in the database (skip duplicate unresolved alerts)."""
+        mac = normalize_mac(mac)
+        existing = db.query(Alert).filter(
+            Alert.mac_address == mac,
+            Alert.alert_type == alert_type,
+            Alert.is_resolved == False
+        ).first()
+        if existing:
+            return
+
         alert = Alert(
+            device_id=device_id,
             alert_type=alert_type,
             severity=severity,
             title=title,

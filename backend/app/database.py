@@ -1,13 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-import os
+from .config import Config
 
-# Database configuration
-DATABASE_URL = os.getenv(
-    'DATABASE_URL',
-    'sqlite:///network_compliance.db'
-)
+DATABASE_URL = Config.DATABASE_URL
 
 # Create engine
 engine = create_engine(DATABASE_URL, pool_pre_ping=True)

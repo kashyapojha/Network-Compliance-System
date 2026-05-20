@@ -25,21 +25,24 @@ def list_alerts():
         
         alerts = query.order_by(Alert.created_at.desc()).limit(100).all()
         
-        return jsonify([{
-            'id': a.id,
-            'device_id': a.device_id,
-            'device_hostname': a.device.hostname if a.device else None,
-            'alert_type': a.alert_type.value,
-            'severity': a.severity.value,
-            'title': a.title,
-            'description': a.description,
-            'ip_address': a.ip_address,
-            'mac_address': a.mac_address,
-            'is_resolved': a.is_resolved,
-            'resolved_at': a.resolved_at.isoformat() if a.resolved_at else None,
-            'resolved_by': a.resolved_by,
-            'created_at': a.created_at.isoformat() if a.created_at else None
-        } for a in alerts])
+        result = []
+        for a in alerts:
+            result.append({
+                'id': a.id,
+                'device_id': a.device_id,
+                'device_hostname': a.device.hostname if a.device else None,
+                'alert_type': a.alert_type.value if a.alert_type else None,
+                'severity': a.severity.value if a.severity else 'medium',
+                'title': a.title or 'Alert',
+                'description': a.description or '',
+                'ip_address': a.ip_address,
+                'mac_address': a.mac_address,
+                'is_resolved': bool(a.is_resolved),
+                'resolved_at': a.resolved_at.isoformat() if a.resolved_at else None,
+                'resolved_by': a.resolved_by,
+                'created_at': a.created_at.isoformat() if a.created_at else None
+            })
+        return jsonify(result)
     finally:
         db.close()
 

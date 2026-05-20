@@ -124,19 +124,17 @@ class FingerprintingService:
     def calculate_trust_score(self, device):
         """Calculate trust score for a device based on various factors."""
         score = 100.0
-        
-        # Deduct for unknown vendor
-        if device.vendor == 'Unknown':
+
+        if getattr(device, 'vendor', None) in (None, 'Unknown'):
             score -= 20
-        
-        # Deduct for unknown OS
-        if device.os_fingerprint == 'Unknown':
+
+        if getattr(device, 'os_fingerprint', None) in (None, 'Unknown'):
             score -= 15
-        
-        # Deduct for recent hostname changes
-        # (would need to track history)
-        
-        # Deduct for failed authentication attempts
-        # (would need to query auth logs)
-        
+
+        if not getattr(device, 'is_authorized', False):
+            score -= 50
+
+        if getattr(device, 'is_quarantined', False):
+            score = 10
+
         return max(0, min(100, score))

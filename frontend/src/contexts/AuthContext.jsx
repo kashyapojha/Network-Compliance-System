@@ -15,7 +15,11 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
 
+  const apiUrl = import.meta.env.VITE_API_URL ?? (import.meta.env.DEV ? '' : 'http://localhost:5000')
+
   useEffect(() => {
+    axios.defaults.baseURL = apiUrl
+    
     const token = localStorage.getItem('token')
     if (token) {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
@@ -50,6 +54,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('token')
     delete axios.defaults.headers.common['Authorization']
     setUser(null)
+    window.location.href = '/login'
   }
 
   const value = {

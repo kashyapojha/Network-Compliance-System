@@ -13,20 +13,32 @@ const Alerts = () => {
   const [loading, setLoading] = useState(true)
   const [filter, setFilter] = useState('all')
   const [search, setSearch] = useState('')
+  const [error, setError] = useState('')
+  const [stats, setStats] = useState(null)
 
   useEffect(() => {
     fetchAlerts()
+    const interval = setInterval(fetchAlerts, 15000)
+    return () => clearInterval(interval)
   }, [filter])
 
   const fetchAlerts = async () => {
     try {
+      setError('')
       const params = {}
-      if (filter !== 'all') params.resolved = filter === 'resolved' ? 'true' : 'false'
-      
-      const response = await axios.get('/api/alerts', { params })
-      setAlerts(response.data)
-    } catch (error) {
-      console.error('Failed to fetch alerts:', error)
+      if (filter === 'resolved') params.resolved = 'true'
+      if (filter === 'unresolved') params.resolved = 'false'
+
+      const [alertsRes, statsRes] = await Promise.all([
+        axios.get('/api/alerts', { params }),
+        axios.get('/api/alerts/stats')
+      ])
+      setAlerts(Array.isArray(alertsRes.data) ? alertsRes.data : [])
+      setStats(statsRes.data)
+    } catch (err) {
+      console.error('Failed to fetch alerts:', err)
+      setError('Failed to load alerts. Make sure the backend is running.')
+      setAlerts([])
     } finally {
       setLoading(false)
     }
@@ -51,10 +63,13 @@ const Alerts = () => {
     }
   }
 
-  const filteredAlerts = alerts.filter(alert =>
-    alert.title.toLowerCase().includes(search.toLowerCase()) ||
-    alert.description?.toLowerCase().includes(search.toLowerCase())
-  )
+  const filteredAlerts = alerts.filter(alert => {
+    const q = search.toLowerCase()
+    const title = (alert.title || '').toLowerCase()
+    const desc = (alert.description || '').toLowerCase()
+    const mac = (alert.mac_address || '').toLowerCase()
+    return title.includes(q) || desc.includes(q) || mac.includes(q)
+  })
 
   if (loading) {
     return <div className="text-center py-12">Loading alerts...</div>
@@ -65,6 +80,14 @@ const Alerts = () => {
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold text-white">Alerts</h1>
         <div className="flex items-center gap-4">
+          {stats && (
+            <span className="text-gray-400 text-sm">
+              {stats.unresolved} unresolved · {stats.total} total
+            </span>
+          )}
+          <button onClick={fetchAlerts} className="btn btn-primary text-sm">
+            Refresh
+          </button>
           <div className="flex items-center gap-2">
             <Filter size={20} className="text-gray-400" />
             <select
@@ -79,6 +102,12 @@ const Alerts = () => {
           </div>
         </div>
       </div>
+
+      {error && (
+        <div className="bg-red-900/50 border border-red-700 text-red-200 px-4 py-3 rounded-lg">
+          {error}
+        </div>
+      )}
 
       {/* Search */}
       <div className="card flex items-center gap-2">
@@ -141,7 +170,10 @@ const Alerts = () => {
 
         {filteredAlerts.length === 0 && (
           <div className="text-center py-8 text-gray-400">
-            No alerts found
+            <p>No alerts found.</p>
+            <p className="text-sm mt-2">
+              Run a network scan from Dashboard or Devices to detect unknown/unauthorized devices.
+            </p>
           </div>
         )}
       </div>

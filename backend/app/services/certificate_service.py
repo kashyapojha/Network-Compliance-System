@@ -6,15 +6,17 @@ from cryptography.hazmat.backends import default_backend
 from datetime import datetime, timedelta
 import os
 import json
+from ..config import Config
 
 
 class CertificateService:
     """Service for managing certificates and CA operations."""
     
     def __init__(self):
-        self.ca_dir = "certificates/ca"
-        self.issued_dir = "certificates/issued"
-        self.revoked_dir = "certificates/revoked"
+        base = os.path.abspath(Config.CERTIFICATES_DIR)
+        self.ca_dir = os.path.join(base, "ca")
+        self.issued_dir = os.path.join(base, "issued")
+        self.revoked_dir = os.path.join(base, "revoked")
         self._ensure_directories()
         self._load_or_create_ca()
     
@@ -102,6 +104,16 @@ class CertificateService:
             x509.NameAttribute(NameOID.COMMON_NAME, device.hostname),
         ])
         
+        # Construct Subject Alternative Name (SAN) list
+        san_items = [x509.DNSName(device.hostname)]
+        if device.ip_address:
+            import ipaddress
+            try:
+                ip_obj = ipaddress.ip_address(device.ip_address)
+                san_items.append(x509.IPAddress(ip_obj))
+            except ValueError:
+                pass
+
         # Build certificate
         cert = x509.CertificateBuilder().subject_name(
             subject
@@ -116,10 +128,7 @@ class CertificateService:
         ).not_valid_after(
             datetime.utcnow() + timedelta(days=365)  # 1 year
         ).add_extension(
-            x509.SubjectAlternativeName([
-                x509.DNSName(device.hostname),
-                x509.IPAddress(device.ip_address) if device.ip_address else None,
-            ]),
+            x509.SubjectAlternativeName(san_items),
             critical=False,
         ).add_extension(
             x509.KeyUsage(

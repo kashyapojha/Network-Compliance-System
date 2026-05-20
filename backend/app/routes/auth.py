@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from sqlalchemy.orm import Session
 from ..database import get_db
-from ..models.admin import Admin
+from ..models.admin import Admin, UserRole
 from ..utils.auth import hash_password, verify_password
 from datetime import datetime
 
@@ -28,12 +28,19 @@ def register():
         if existing:
             return jsonify({'error': 'Username or email already exists'}), 409
         
+        # Parse role safely
+        role_str = data.get('role', 'user')
+        try:
+            role_enum = UserRole(role_str)
+        except ValueError:
+            role_enum = UserRole.USER
+
         # Create admin
         admin = Admin(
             username=data['username'],
             email=data['email'],
             hashed_password=hash_password(data['password']),
-            role=data.get('role', 'user')
+            role=role_enum
         )
         
         db.add(admin)
@@ -72,7 +79,7 @@ def login():
         db.commit()
         
         # Generate token
-        access_token = create_access_token(identity=admin.id)
+        access_token = create_access_token(identity=str(admin.id))
         
         return jsonify({
             'access_token': access_token,
@@ -93,7 +100,7 @@ def get_current_user():
     """Get current user info."""
     db: Session = next(get_db())
     try:
-        admin_id = get_jwt_identity()
+        admin_id = int(get_jwt_identity())
         admin = db.query(Admin).get(admin_id)
         
         if not admin:

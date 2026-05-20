@@ -41,6 +41,37 @@ const Compliance = () => {
     }
   }
 
+  const handleExportLatest = async () => {
+    try {
+      let reportId = reports[0]?.id
+      if (!reportId) {
+        const response = await axios.post('/api/compliance/report', { type: 'on_demand' })
+        reportId = response.data.id
+        await fetchComplianceData()
+      }
+      await handleViewReport(reportId)
+    } catch (error) {
+      console.error('Failed to export report:', error)
+    }
+  }
+
+  const handleViewReport = async (reportId) => {
+    try {
+      const response = await axios.get(`/api/compliance/reports/${reportId}`)
+      const blob = new Blob([JSON.stringify(response.data, null, 2)], { type: 'application/json' })
+      const url = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', `compliance-report-${reportId}.json`)
+      document.body.appendChild(link)
+      link.click()
+      link.remove()
+      window.URL.revokeObjectURL(url)
+    } catch (error) {
+      console.error('Failed to export report:', error)
+    }
+  }
+
   const getScoreColor = (score) => {
     if (score >= 90) return 'text-green-500'
     if (score >= 70) return 'text-yellow-500'
@@ -55,7 +86,7 @@ const Compliance = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold text-white">Compliance</h1>
-        <button className="btn btn-primary flex items-center gap-2">
+        <button onClick={handleExportLatest} className="btn btn-primary flex items-center gap-2">
           <Download size={18} />
           Export Report
         </button>
@@ -168,7 +199,10 @@ const Compliance = () => {
                 <span className={`text-lg font-bold ${getScoreColor(report.compliance_score)}`}>
                   {report.compliance_score}%
                 </span>
-                <button className="btn btn-primary flex items-center gap-2">
+                <button
+                  onClick={() => handleViewReport(report.id)}
+                  className="btn btn-primary flex items-center gap-2"
+                >
                   <Download size={16} />
                   View
                 </button>

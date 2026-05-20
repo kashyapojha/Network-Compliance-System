@@ -6,8 +6,32 @@ from ..models.device import Device
 from ..services.certificate_service import CertificateService
 import tempfile
 import os
+from datetime import datetime
 
 bp = Blueprint('certificates', __name__)
+
+
+@bp.route('/', methods=['GET'])
+def list_certificates():
+    """List all device certificates."""
+    db: Session = next(get_db())
+    try:
+        certificates = db.query(Certificate).order_by(Certificate.created_at.desc()).all()
+        return jsonify([{
+            'id': c.id,
+            'device_id': c.device_id,
+            'device_hostname': c.device.hostname if c.device else None,
+            'serial_number': c.serial_number,
+            'issuer': c.issuer,
+            'subject': c.subject,
+            'not_valid_before': c.not_valid_before.isoformat() if c.not_valid_before else None,
+            'not_valid_after': c.not_valid_after.isoformat() if c.not_valid_after else None,
+            'is_revoked': c.is_revoked,
+            'revoked_at': c.revoked_at.isoformat() if c.revoked_at else None,
+            'revocation_reason': c.revocation_reason
+        } for c in certificates])
+    finally:
+        db.close()
 
 
 @bp.route('/generate/<int:device_id>', methods=['POST'])

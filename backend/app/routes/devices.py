@@ -3,9 +3,17 @@ from sqlalchemy.orm import Session
 from ..database import get_db
 from ..models.device import Device
 from ..models.certificate import Certificate
+from ..utils.network_utils import get_local_network_info, normalize_mac
+from ..utils.device_utils import compute_trust_score
 from datetime import datetime
 
 bp = Blueprint('devices', __name__)
+
+
+@bp.route('/local-info', methods=['GET'])
+def local_device_info():
+    """Auto-detect this machine's hostname, IP, MAC, and network range."""
+    return jsonify(get_local_network_info())
 
 
 @bp.route('/', methods=['GET'])
@@ -35,7 +43,7 @@ def list_devices():
             'department': d.department,
             'os_fingerprint': d.os_fingerprint,
             'vendor': d.vendor,
-            'trust_score': d.trust_score,
+            'trust_score': compute_trust_score(d),
             'is_authorized': d.is_authorized,
             'is_quarantined': d.is_quarantined,
             'vlan_assignment': d.vlan_assignment,
@@ -72,15 +80,16 @@ def register_device():
         # Create new device
         device = Device(
             hostname=data['hostname'],
-            mac_address=data['mac_address'].upper(),
+            mac_address=normalize_mac(data['mac_address']),
             ip_address=data.get('ip_address'),
             device_type=data['device_type'],
             department=data['department'],
             os_fingerprint=data.get('os_fingerprint'),
             vendor=data.get('vendor'),
-            is_authorized=False  # Requires certificate approval
+            is_authorized=data.get('is_authorized', False)
         )
-        
+        device.trust_score = compute_trust_score(device)
+
         db.add(device)
         db.commit()
         db.refresh(device)
@@ -144,9 +153,13 @@ def authorize_device(device_id):
         
         device.is_authorized = True
         device.is_quarantined = False
+        device.trust_score = compute_trust_score(device)
         db.commit()
-        
-        return jsonify({'message': 'Device authorized successfully'})
+
+        return jsonify({
+            'message': 'Device authorized successfully',
+            'trust_score': device.trust_score
+        })
     finally:
         db.close()
 
@@ -162,9 +175,13 @@ def quarantine_device(device_id):
         
         device.is_quarantined = True
         device.is_authorized = False
+        device.trust_score = compute_trust_score(device)
         db.commit()
-        
-        return jsonify({'message': 'Device quarantined successfully'})
+
+        return jsonify({
+            'message': 'Device quarantined successfully',
+            'trust_score': device.trust_score
+        })
     finally:
         db.close()
 
