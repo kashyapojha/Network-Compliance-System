@@ -22,6 +22,7 @@ class AlertType(enum.Enum):
     CERT_REVOKED = "cert_revoked"
     AUTH_FAILURE = "auth_failure"
     SUSPICIOUS_ACTIVITY = "suspicious_activity"
+    NAMING_VIOLATION = "naming_violation"
 
 
 class Alert(Base):

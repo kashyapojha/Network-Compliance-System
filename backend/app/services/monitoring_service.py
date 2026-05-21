@@ -1,6 +1,7 @@
 import threading
 import time
 import logging
+import re
 from datetime import datetime
 from sqlalchemy.orm import Session
 from scapy.all import ARP, Ether, srp, getmacbyip
@@ -32,6 +33,17 @@ class MonitoringService:
         self.alert_count = 0
         self.fingerprinting = FingerprintingService()
         self._thread = None
+        
+        # Company naming convention pattern (configurable via env)
+        # Example: DEPT-DEVICETYPE-NNNN (e.g., IT-WS-0042, HR-LPT-0023)
+        self.naming_pattern = os.getenv(
+            'NAMING_PATTERN',
+            r'^[A-Z]{2,3}-[A-Z]{2,4}-\d{4}$'
+        )
+        self.naming_description = os.getenv(
+            'NAMING_DESCRIPTION',
+            'DEPT-DEVICETYPE-NNNN (e.g., IT-WS-0042, HR-LPT-0023)'
+        )
     
     def start(self):
         """Start the monitoring loop."""
@@ -114,6 +126,19 @@ class MonitoringService:
         mac = normalize_mac(device_data['mac_address'])
         ip = device_data['ip_address']
         hostname = device_data['hostname']
+        
+        # Check naming convention first (for all devices)
+        is_valid_naming, naming_reason = self._validate_naming_convention(hostname)
+        if not is_valid_naming:
+            self._create_alert(
+                db,
+                AlertType.NAMING_VIOLATION,
+                AlertSeverity.HIGH,
+                f"Device naming violation detected: {hostname}",
+                f"{naming_reason}. Device may be unauthorized.",
+                ip,
+                mac
+            )
         
         # Check if device exists in database
         existing_device = db.query(Device).filter(
@@ -199,6 +224,16 @@ class MonitoringService:
             )
             self._update_trust_score(existing_device)
 
+    def _validate_naming_convention(self, hostname):
+        """Check if device hostname follows company naming convention."""
+        if not hostname or hostname.startswith('UNKNOWN'):
+            return False, "Hostname is unknown or not resolvable"
+        
+        if not re.match(self.naming_pattern, hostname):
+            return False, f"Hostname does not match pattern: {self.naming_description}"
+        
+        return True, "Hostname follows naming convention"
+    
     def _update_trust_score(self, device):
         """Recalculate trust score from authorization and device profile."""
         score = self.fingerprinting.calculate_trust_score(device)
