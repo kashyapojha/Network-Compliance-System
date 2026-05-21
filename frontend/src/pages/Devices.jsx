@@ -372,6 +372,9 @@ const Devices = () => {
               <th>Type</th>
               <th>Department</th>
               <th>Status</th>
+              <th>First Seen</th>
+              <th>Last Seen</th>
+              <th>Times Seen</th>
               <th>Trust Score</th>
               <th>Actions</th>
             </tr>
@@ -399,6 +402,13 @@ const Devices = () => {
                     </span>
                   )}
                 </td>
+                <td className="text-sm text-gray-400 whitespace-nowrap">
+                  {device.first_seen ? new Date(device.first_seen).toLocaleString() : '—'}
+                </td>
+                <td className="text-sm text-gray-400 whitespace-nowrap">
+                  {device.last_seen ? new Date(device.last_seen).toLocaleString() : '—'}
+                </td>
+                <td className="text-sm text-gray-100">{device.times_seen ?? 0}</td>
                 <td>
                   <div className="flex items-center gap-2">
                     <div className="w-16 bg-dark-700 rounded-full h-2">

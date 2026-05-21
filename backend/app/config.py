@@ -61,3 +61,6 @@ class Config:
     SOCKETIO_CORS_ORIGINS = os.getenv('SOCKETIO_CORS_ORIGINS', CORS_ORIGINS)
 
     BACKEND_URL = os.getenv('BACKEND_URL', 'http://localhost:5000')
+
+    AUTO_START_MONITORING = os.getenv('AUTO_START_MONITORING', 'true').lower() == 'true'
+    SMTP_ENABLED = os.getenv('SMTP_ENABLED', 'false').lower() == 'true'

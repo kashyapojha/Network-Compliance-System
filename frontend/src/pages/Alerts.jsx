@@ -19,7 +19,12 @@ const Alerts = () => {
   useEffect(() => {
     fetchAlerts()
     const interval = setInterval(fetchAlerts, 15000)
-    return () => clearInterval(interval)
+    const onNewAlert = () => fetchAlerts()
+    window.addEventListener('compliance:new-alert', onNewAlert)
+    return () => {
+      clearInterval(interval)
+      window.removeEventListener('compliance:new-alert', onNewAlert)
+    }
   }, [filter])
 
   const fetchAlerts = async () => {

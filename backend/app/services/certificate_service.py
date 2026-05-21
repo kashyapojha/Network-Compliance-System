@@ -53,11 +53,11 @@ class CertificateService:
             )
             
             subject = issuer = x509.Name([
-                x509.NameAttribute(NameOID.COUNTRY_NAME, "US"),
-                x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, "California"),
-                x509.NameAttribute(NameOID.LOCALITY_NAME, "San Francisco"),
-                x509.NameAttribute(NameOID.ORGANIZATION_NAME, "Enterprise Network"),
-                x509.NameAttribute(NameOID.COMMON_NAME, "Enterprise Root CA"),
+                x509.NameAttribute(NameOID.COUNTRY_NAME, "IN"),
+                x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, "Gujarat"),
+                x509.NameAttribute(NameOID.LOCALITY_NAME, "Gujarat"),
+                x509.NameAttribute(NameOID.ORGANIZATION_NAME, "UltraTech"),
+                x509.NameAttribute(NameOID.COMMON_NAME, "UltraTech Root CA"),
             ])
             
             self.ca_cert = x509.CertificateBuilder().subject_name(
@@ -96,11 +96,13 @@ class CertificateService:
             backend=default_backend()
         )
         
-        # Create certificate subject
+        # Create certificate subject (UltraTech — Gujarat, India)
         subject = x509.Name([
-            x509.NameAttribute(NameOID.COUNTRY_NAME, "US"),
-            x509.NameAttribute(NameOID.ORGANIZATION_NAME, "Enterprise Network"),
-            x509.NameAttribute(NameOID.ORGANIZATIONAL_UNIT_NAME, device.department),
+            x509.NameAttribute(NameOID.COUNTRY_NAME, "IN"),
+            x509.NameAttribute(NameOID.STATE_OR_PROVINCE_NAME, "Gujarat"),
+            x509.NameAttribute(NameOID.LOCALITY_NAME, "Gujarat"),
+            x509.NameAttribute(NameOID.ORGANIZATION_NAME, "UltraTech"),
+            x509.NameAttribute(NameOID.ORGANIZATIONAL_UNIT_NAME, device.department or "IT"),
             x509.NameAttribute(NameOID.COMMON_NAME, device.hostname),
         ])
         

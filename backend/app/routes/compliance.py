@@ -7,6 +7,7 @@ from ..models.alert import Alert
 from ..models.auth_log import AuthLog, AuthStatus
 from ..models.compliance_report import ComplianceReport
 from ..services.compliance_service import ComplianceService
+from ..utils.compliance_utils import calculate_compliance_score
 from datetime import datetime, timedelta
 
 bp = Blueprint('compliance', __name__)
@@ -18,21 +19,17 @@ def get_compliance_score():
     db: Session = next(get_db())
     try:
         total_devices = db.query(Device).count()
-        if total_devices == 0:
-            return jsonify({'score': 100, 'total_devices': 0})
-        
         authorized = db.query(Device).filter(Device.is_authorized == True).count()
         quarantined = db.query(Device).filter(Device.is_quarantined == True).count()
-        
-        # Calculate score based on authorization rate
-        score = (authorized / total_devices) * 100
-        
+        score, unresolved_alerts = calculate_compliance_score(db)
+
         return jsonify({
-            'score': round(score, 2),
+            'score': score,
             'total_devices': total_devices,
             'authorized': authorized,
             'unauthorized': total_devices - authorized,
-            'quarantined': quarantined
+            'quarantined': quarantined,
+            'unresolved_alerts': unresolved_alerts
         })
     finally:
         db.close()
@@ -136,7 +133,10 @@ def get_metrics():
             AuthLog.created_at >= yesterday,
             AuthLog.status != AuthStatus.SUCCESS
         ).count()
-        
+
+        unresolved_alerts = db.query(Alert).filter(Alert.is_resolved == False).count()
+        compliance_score, _ = calculate_compliance_score(db)
+
         return jsonify({
             'devices': {
                 'total': total_devices,
@@ -145,7 +145,12 @@ def get_metrics():
                 'quarantined': quarantined_devices
             },
             'alerts': {
-                'last_24h': recent_alerts
+                'last_24h': recent_alerts,
+                'unresolved': unresolved_alerts
+            },
+            'compliance': {
+                'score': compliance_score,
+                'unresolved_alerts': unresolved_alerts
             },
             'authentication': {
                 'success_last_24h': recent_auth_success,

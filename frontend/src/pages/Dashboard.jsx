@@ -37,8 +37,14 @@ const Dashboard = () => {
 
   const fetchMetrics = async () => {
     try {
-      const response = await axios.get('/api/compliance/metrics')
-      setMetrics(response.data)
+      const [metricsRes, statusRes] = await Promise.all([
+        axios.get('/api/compliance/metrics'),
+        axios.get('/api/monitoring/status').catch(() => ({ data: { running: false } }))
+      ])
+      setMetrics({
+        ...metricsRes.data,
+        monitoring: statusRes.data
+      })
     } catch (error) {
       console.error('Failed to fetch metrics:', error)
     } finally {
@@ -95,7 +101,9 @@ const Dashboard = () => {
         <h1 className="text-3xl font-bold text-white">Dashboard</h1>
         <div className="flex items-center gap-2 text-gray-400">
           <Activity size={20} className="text-green-500" />
-          <span>Live Monitoring</span>
+          <span className={metrics?.monitoring?.running ? 'text-green-500' : 'text-yellow-500'}>
+            {metrics?.monitoring?.running ? 'Monitoring Active' : 'Manual Scan'}
+          </span>
         </div>
       </div>
 
@@ -120,9 +128,9 @@ const Dashboard = () => {
         <div className="card">
           <div className="flex items-center justify-between mb-4">
             <AlertTriangle className="text-yellow-500" size={24} />
-            <span className="text-2xl font-bold text-white">{alertMetrics.last_24h || 0}</span>
+            <span className="text-2xl font-bold text-white">{alertMetrics.unresolved ?? 0}</span>
           </div>
-          <p className="text-gray-400">Alerts (24h)</p>
+          <p className="text-gray-400">Unresolved Alerts</p>
         </div>
 
         <div className="card">
@@ -170,10 +178,12 @@ const Dashboard = () => {
             <div className="flex items-center justify-between">
               <span className="text-gray-400">Compliance Score</span>
               <span className="text-primary-500 font-bold">
-                {deviceMetrics.total > 0 
-                  ? Math.round((deviceMetrics.authorized / deviceMetrics.total) * 100) 
-                  : 100}%
+                {metrics?.compliance?.score ?? 100}%
               </span>
+            </div>
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-gray-500">Based on unresolved alerts</span>
+              <span className="text-gray-400">{metrics?.compliance?.unresolved_alerts ?? 0} open</span>
             </div>
             <div className="flex items-center justify-between">
               <span className="text-gray-400">Quarantined Devices</span>

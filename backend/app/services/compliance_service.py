@@ -6,6 +6,7 @@ from ..models.device import Device
 from ..models.alert import Alert
 from ..models.auth_log import AuthLog, AuthStatus
 from ..models.compliance_report import ComplianceReport
+from ..utils.compliance_utils import calculate_compliance_score
 import json
 
 
@@ -32,11 +33,8 @@ class ComplianceService:
             compliant_devices = authorized_devices  # Simplified
             non_compliant_devices = unauthorized_devices
             
-            # Calculate score
-            compliance_score = 0
-            if total_devices > 0:
-                compliance_score = (compliant_devices / total_devices) * 100
-            
+            compliance_score, unresolved_alerts = calculate_compliance_score(db)
+
             # Alert metrics
             alerts_generated = db.query(Alert).count()
             

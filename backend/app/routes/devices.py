@@ -5,6 +5,7 @@ from ..models.device import Device
 from ..models.certificate import Certificate
 from ..utils.network_utils import get_local_network_info, normalize_mac
 from ..utils.device_utils import compute_trust_score
+from ..services.monitoring_service import MonitoringService
 from datetime import datetime
 
 bp = Blueprint('devices', __name__)
@@ -49,6 +50,7 @@ def list_devices():
             'vlan_assignment': d.vlan_assignment,
             'first_seen': d.first_seen.isoformat() if d.first_seen else None,
             'last_seen': d.last_seen.isoformat() if d.last_seen else None,
+            'times_seen': d.times_seen or 0,
             'certificate_count': len(d.certificates)
         } for d in devices])
     finally:
@@ -154,10 +156,12 @@ def authorize_device(device_id):
         device.is_authorized = True
         device.is_quarantined = False
         device.trust_score = compute_trust_score(device)
+
+        MonitoringService().resolve_alerts_for_device_id(db, device_id)
         db.commit()
 
         return jsonify({
-            'message': 'Device authorized successfully',
+            'message': 'Device authorized successfully. Related alerts resolved.',
             'trust_score': device.trust_score
         })
     finally:

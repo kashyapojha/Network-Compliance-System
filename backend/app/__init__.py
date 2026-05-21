@@ -4,6 +4,7 @@ from flask_jwt_extended import JWTManager
 from flask_socketio import SocketIO
 from .database import init_db
 from .config import Config
+from .services.monitoring_service import set_monitoring_socketio
 
 def create_app():
     """Application factory pattern."""
@@ -20,7 +21,8 @@ def create_app():
 
     socket_origins = [o.strip() for o in Config.SOCKETIO_CORS_ORIGINS.split(',') if o.strip()]
     socketio = SocketIO(app, cors_allowed_origins=socket_origins or '*')
-    
+    set_monitoring_socketio(socketio)
+
     # Initialize database
     init_db()
     

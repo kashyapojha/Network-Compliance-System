@@ -10,12 +10,18 @@ import {
   Menu,
   X
 } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSocket } from '../contexts/SocketContext'
 
 const Layout = () => {
   const { user, logout } = useAuth()
+  const { connect } = useSocket()
   const location = useLocation()
   const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  useEffect(() => {
+    connect()
+  }, [connect])
 
   const navItems = [
     { path: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },

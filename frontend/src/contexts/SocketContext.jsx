@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState, useCallback } from 'react'
 import io from 'socket.io-client'
 
 const SocketContext = createContext(null)
@@ -11,65 +11,85 @@ export const useSocket = () => {
   return context
 }
 
+const playAlertSound = () => {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)()
+    const osc = ctx.createOscillator()
+    const gain = ctx.createGain()
+    osc.connect(gain)
+    gain.connect(ctx.destination)
+    osc.frequency.value = 880
+    gain.gain.value = 0.15
+    osc.start()
+    osc.stop(ctx.currentTime + 0.2)
+  } catch {
+    /* ignore if audio blocked */
+  }
+}
+
 export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null)
   const [connected, setConnected] = useState(false)
+  const [lastAlert, setLastAlert] = useState(null)
 
   useEffect(() => {
+    if ('Notification' in window && Notification.permission === 'default') {
+      Notification.requestPermission()
+    }
+
     const socketUrl = import.meta.env.VITE_SOCKET_URL || ''
     const newSocket = io(socketUrl || undefined, {
-      transports: ['websocket'],
+      transports: ['websocket', 'polling'],
       autoConnect: false
     })
 
     newSocket.on('connect', () => {
       setConnected(true)
-      console.log('WebSocket connected')
     })
 
     newSocket.on('disconnect', () => {
       setConnected(false)
-      console.log('WebSocket disconnected')
     })
 
     newSocket.on('alert', (data) => {
-      console.log('New alert received:', data)
-      // Handle real-time alerts
+      setLastAlert({ ...data, receivedAt: Date.now() })
+      playAlertSound()
+      if (Notification.permission === 'granted') {
+        new Notification('Security Alert', {
+          body: data.title || 'New security alert detected',
+        })
+      }
+      window.dispatchEvent(new CustomEvent('compliance:new-alert', { detail: data }))
     })
 
     newSocket.on('device_detected', (data) => {
-      console.log('Device detected:', data)
-      // Handle real-time device detection
+      if (Notification.permission === 'granted') {
+        new Notification('Device Detected', {
+          body: `New device: ${data.hostname || 'Unknown'}`,
+        })
+      }
     })
 
     setSocket(newSocket)
-
     return () => {
       newSocket.disconnect()
     }
   }, [])
 
-  const connect = () => {
-    if (socket) {
+  const connect = useCallback(() => {
+    if (socket && !socket.connected) {
       socket.connect()
     }
-  }
+  }, [socket])
 
-  const disconnect = () => {
+  const disconnect = useCallback(() => {
     if (socket) {
       socket.disconnect()
     }
-  }
-
-  const value = {
-    socket,
-    connected,
-    connect,
-    disconnect
-  }
+  }, [socket])
 
   return (
-    <SocketContext.Provider value={value}>
+    <SocketContext.Provider value={{ socket, connected, connect, disconnect, lastAlert }}>
       {children}
     </SocketContext.Provider>
   )
