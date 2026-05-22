@@ -34,7 +34,7 @@ const Login = () => {
       await login(username, password)
       navigate('/dashboard')
     } catch (err) {
-      setError('Invalid credentials')
+      setError(err.message || 'Login failed. Please try again.')
     } finally {
       setLoading(false)
     }

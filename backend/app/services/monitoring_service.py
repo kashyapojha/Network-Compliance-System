@@ -2,9 +2,11 @@ import threading
 import time
 import logging
 import re
+import ipaddress
+import subprocess
+import platform
 from datetime import datetime
 from sqlalchemy.orm import Session
-from scapy.all import ARP, Ether, srp
 import socket
 import smtplib
 from email.mime.text import MIMEText
@@ -39,9 +41,13 @@ class MonitoringService:
     )
 
     def __init__(self, network_range=None, poll_interval=None):
+        # Auto-detect network range if not provided or set to 'auto'
+        if not network_range or network_range == 'auto':
+            network_range = None
+        
         self.network_range = (
             network_range
-            or Config.NETWORK_RANGE
+            or (Config.NETWORK_RANGE if Config.NETWORK_RANGE and Config.NETWORK_RANGE != 'auto' else None)
             or get_network_cidr()
         )
         self.poll_interval = poll_interval or Config.POLL_INTERVAL
@@ -84,8 +90,18 @@ class MonitoringService:
         self.is_running = False
         log.info("Stopping network monitoring")
 
+    def _is_ip_in_network_range(self, ip):
+        """Check if IP address is within the configured network range."""
+        try:
+            ip_obj = ipaddress.ip_address(ip)
+            network = ipaddress.ip_network(self.network_range, strict=False)
+            return ip_obj in network
+        except Exception:
+            return False
+    
     def scan_network(self):
         try:
+            from scapy.all import ARP, Ether, srp
             log.info(f"Scanning network: {self.network_range}")
             arp = ARP(pdst=self.network_range)
             ether = Ether(dst="ff:ff:ff:ff:ff:ff")
@@ -95,6 +111,12 @@ class MonitoringService:
             for _, rcv in result:
                 ip = rcv.psrc
                 mac = normalize_mac(rcv.hwsrc)
+                
+                # Filter devices not in the configured network range
+                if not self._is_ip_in_network_range(ip):
+                    log.debug(f"Skipping device {ip} - not in network range {self.network_range}")
+                    continue
+                
                 try:
                     hostname = socket.gethostbyaddr(ip)[0].split(".")[0].upper()
                 except socket.herror:
@@ -111,15 +133,24 @@ class MonitoringService:
                 })
 
             self.detected_devices = devices
-            log.info(f"Detected {len(devices)} devices")
+            log.info(f"Detected {len(devices)} devices in network range")
             return devices
 
-        except ImportError:
-            log.warning("Scapy not installed - using demo mode")
+        except ImportError as e:
+            log.error(f"Scapy not installed: {e}")
             return self._demo_devices()
+        except PermissionError as e:
+            log.error(f"Permission denied - need Administrator privileges: {e}")
+            log.info("Falling back to Windows ARP scan method")
+            return self._scan_windows_arp()
+        except OSError as e:
+            log.error(f"OS error during scan: {e}")
+            log.info("Falling back to Windows ARP scan method")
+            return self._scan_windows_arp()
         except Exception as e:
             log.error(f"Network scan failed: {e}")
-            return []
+            log.info("Falling back to Windows ARP scan method")
+            return self._scan_windows_arp()
 
     def scan_and_check(self):
         devices = self.scan_network()
@@ -307,6 +338,71 @@ class MonitoringService:
             log.info(f"Email alert sent to {self.admin_email}")
         except Exception as e:
             log.error(f"Failed to send email alert: {e}")
+
+    def _scan_windows_arp(self):
+        """Fallback scanning method using Windows ARP command (no Administrator required)."""
+        try:
+            log.info(f"Using Windows ARP scan for network: {self.network_range}")
+            
+            # Run Windows ARP command
+            result = subprocess.run(['arp', '-a'], capture_output=True, text=True, timeout=10)
+            
+            if result.returncode != 0:
+                log.error(f"ARP command failed: {result.stderr}")
+                return []
+            
+            # Parse ARP output
+            devices = []
+            lines = result.stdout.split('\n')
+            
+            for line in lines:
+                # ARP output format: "  192.168.1.1           00-11-22-33-44-55     dynamic"
+                parts = line.split()
+                if len(parts) >= 2:
+                    # Check if first part looks like an IP address
+                    ip_candidate = parts[0]
+                    try:
+                        ipaddress.ip_address(ip_candidate)
+                        ip = ip_candidate
+                        
+                        # MAC address is usually the second part
+                        mac_candidate = parts[1]
+                        if '-' in mac_candidate and len(mac_candidate) == 17:
+                            mac = normalize_mac(mac_candidate)
+                            
+                            # Filter devices not in the configured network range
+                            if not self._is_ip_in_network_range(ip):
+                                log.debug(f"Skipping device {ip} - not in network range {self.network_range}")
+                                continue
+                            
+                            # Try to resolve hostname
+                            try:
+                                hostname = socket.gethostbyaddr(ip)[0].split(".")[0].upper()
+                            except socket.herror:
+                                hostname = f"UNKNOWN-{mac.replace(':', '-')}"
+                            
+                            fingerprint = self.fingerprinting.identify_device(mac, ip)
+                            devices.append({
+                                'hostname': hostname,
+                                'ip_address': ip,
+                                'mac_address': mac,
+                                'vendor': fingerprint.get('vendor', 'Unknown'),
+                                'os': fingerprint.get('os', 'Unknown'),
+                                'detected_at': datetime.utcnow().isoformat()
+                            })
+                    except (ipaddress.AddressValueError, ValueError):
+                        continue
+            
+            self.detected_devices = devices
+            log.info(f"ARP scan detected {len(devices)} devices")
+            return devices
+            
+        except subprocess.TimeoutExpired:
+            log.error("ARP command timeout")
+            return []
+        except Exception as e:
+            log.error(f"Windows ARP scan failed: {e}")
+            return []
 
     def _update_trust_score(self, device):
         score = self.fingerprinting.calculate_trust_score(device)

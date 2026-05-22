@@ -17,6 +17,7 @@ const Dashboard = () => {
   const [actionMessage, setActionMessage] = useState('')
   const [networkInfo, setNetworkInfo] = useState(null)
   const [scanning, setScanning] = useState(false)
+  const [currentTime, setCurrentTime] = useState(new Date())
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -24,6 +25,13 @@ const Dashboard = () => {
     fetchNetworkInfo()
     const interval = setInterval(fetchMetrics, 30000)
     return () => clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    const timeInterval = setInterval(() => {
+      setCurrentTime(new Date())
+    }, 1000)
+    return () => clearInterval(timeInterval)
   }, [])
 
   const fetchNetworkInfo = async () => {
@@ -99,11 +107,21 @@ const Dashboard = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold text-white">Dashboard</h1>
-        <div className="flex items-center gap-2 text-gray-400">
-          <Activity size={20} className="text-green-500" />
-          <span className={metrics?.monitoring?.running ? 'text-green-500' : 'text-yellow-500'}>
-            {metrics?.monitoring?.running ? 'Monitoring Active' : 'Manual Scan'}
-          </span>
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2 text-gray-400">
+            <Activity size={20} className="text-green-500" />
+            <span className={metrics?.monitoring?.running ? 'text-green-500' : 'text-yellow-500'}>
+              {metrics?.monitoring?.running ? 'Monitoring Active' : 'Manual Scan'}
+            </span>
+          </div>
+          <div className="text-right">
+            <div className="text-2xl font-bold text-white">
+              {currentTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+            </div>
+            <div className="text-sm text-gray-400">
+              {currentTime.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+            </div>
+          </div>
         </div>
       </div>
 

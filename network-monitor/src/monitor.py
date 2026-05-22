@@ -19,12 +19,17 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from pathlib import Path
 
+# ─── Resolve Paths dynamically ──────────────────────────────────────────────
+MONITOR_DIR = Path(__file__).resolve().parent.parent
+LOGS_DIR = MONITOR_DIR / "logs"
+LOGS_DIR.mkdir(parents=True, exist_ok=True)
+
 # ─── Logging ────────────────────────────────────────────────────────────────
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler("logs/monitor.log"),
+        logging.FileHandler(str(LOGS_DIR / "monitor.log")),
         logging.StreamHandler()
     ]
 )
@@ -45,7 +50,7 @@ CONFIG = {
     "pattern"       : r"^(IT|HR|FIN|OPS|DEV|MKT)-(WS|LPT|SRV|PRN|MOB|CAM|IOT)-\d{4}$",
 
     # DB path
-    "db_path"       : "logs/devices.db",
+    "db_path"       : str(LOGS_DIR / "devices.db"),
     "poll_interval" : 30,   # seconds
     "network_range" : "192.168.1.0/24",
 }

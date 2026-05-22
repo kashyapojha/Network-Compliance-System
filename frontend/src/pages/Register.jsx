@@ -17,10 +17,21 @@ const Register = () => {
     setLoading(true)
 
     try {
-      await axios.post('/api/auth/register', { username, email, password })
+      await axios.post('/api/auth/register', { username, email, password }, { timeout: 10000 })
       navigate('/login', { state: { message: 'Account created. Please sign in.' } })
     } catch (err) {
-      setError(err.response?.data?.error || 'Registration failed')
+      console.error('Registration failed:', err)
+      if (err.code === 'ECONNABORTED') {
+        setError('Request timeout. Please check your connection.')
+      } else if (err.response?.status === 409) {
+        setError('Username or email already exists.')
+      } else if (err.response?.status === 500) {
+        setError('Server error. Please try again later.')
+      } else if (!err.response) {
+        setError('Network error. Please check if the backend is running.')
+      } else {
+        setError(err.response?.data?.error || 'Registration failed. Please try again.')
+      }
     } finally {
       setLoading(false)
     }

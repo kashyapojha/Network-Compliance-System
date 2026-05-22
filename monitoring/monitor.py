@@ -54,23 +54,13 @@ def main():
     # Create monitoring service
     monitoring = MonitoringService(network_range=network_range, poll_interval=poll_interval)
     
-    # Start monitoring via API
+    # Start monitoring directly (not via API)
     try:
-        backend_url = os.getenv('BACKEND_URL', 'http://localhost:5000').rstrip('/')
-        response = requests.post(f'{backend_url}/api/monitoring/start')
-        if response.status_code == 200:
-            log.info("Monitoring started successfully via API")
-        else:
-            log.warning(f"Failed to start monitoring via API: {response.status_code}")
-            # Start directly
-            monitoring.start()
-    except requests.exceptions.ConnectionError:
-        log.warning("Backend not available, starting monitoring directly")
         monitoring.start()
+    except KeyboardInterrupt:
+        log.info("Monitoring stopped by user")
     except Exception as e:
-        log.error(f"Error starting monitoring: {e}")
-        # Start directly as fallback
-        monitoring.start()
+        log.error(f"Error in monitoring: {e}")
 
 
 if __name__ == '__main__':
