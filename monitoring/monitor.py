@@ -49,7 +49,7 @@ def main():
     
     log.info("Starting Network Monitoring Service")
     log.info(f"Network Range: {network_range}")
-    log.info(f"Poll Interval: {poll_interval}s")
+    log.info(f"Poll Interval: {poll_interval}")
     
     # Create monitoring service
     monitoring = MonitoringService(network_range=network_range, poll_interval=poll_interval)

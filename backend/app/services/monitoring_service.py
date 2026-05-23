@@ -41,10 +41,9 @@ class MonitoringService:
     )
 
     def __init__(self, network_range=None, poll_interval=None):
-        # Auto-detect network range if not provided or set to 'auto'
         if not network_range or network_range == 'auto':
             network_range = None
-        
+
         self.network_range = (
             network_range
             or (Config.NETWORK_RANGE if Config.NETWORK_RANGE and Config.NETWORK_RANGE != 'auto' else None)
@@ -98,7 +97,7 @@ class MonitoringService:
             return ip_obj in network
         except Exception:
             return False
-    
+
     def scan_network(self):
         try:
             from scapy.all import ARP, Ether, srp
@@ -111,12 +110,11 @@ class MonitoringService:
             for _, rcv in result:
                 ip = rcv.psrc
                 mac = normalize_mac(rcv.hwsrc)
-                
-                # Filter devices not in the configured network range
+
                 if not self._is_ip_in_network_range(ip):
                     log.debug(f"Skipping device {ip} - not in network range {self.network_range}")
                     continue
-                
+
                 try:
                     hostname = socket.gethostbyaddr(ip)[0].split(".")[0].upper()
                 except socket.herror:
@@ -191,7 +189,11 @@ class MonitoringService:
         existing.last_seen = datetime.utcnow()
         existing.ip_address = ip
         existing.times_seen = (existing.times_seen or 0) + 1
+
+        # FIX: Resolve stale alerts keyed to the old MAC before updating it,
+        # so we don't leave orphaned unresolved alerts behind when the MAC changes.
         if mac and existing.mac_address != mac:
+            self._resolve_alerts_by_mac(db, existing.mac_address, existing.id)
             existing.mac_address = mac
 
         if existing.is_authorized and not existing.is_quarantined:
@@ -236,7 +238,7 @@ class MonitoringService:
         if not is_valid:
             parts.append(naming_reason)
 
-        self._create_alert(
+        alert = self._create_alert(
             db,
             AlertType.SUSPICIOUS_ACTIVITY,
             AlertSeverity.HIGH,
@@ -246,6 +248,22 @@ class MonitoringService:
             mac,
             device_id=device.id,
         )
+
+        # FIX: registered-but-unauthorized devices were silently skipped for
+        # real-time notifications. Emit the socket event and send email here
+        # the same way unregistered devices do, so admins are always notified.
+        if alert:
+            self._send_email_alert(alert.title, alert.description, {
+                'hostname': hostname,
+                'ip_address': ip,
+                'mac_address': mac,
+            })
+            self._emit_realtime('alert', {
+                'id': alert.id,
+                'title': alert.title,
+                'severity': alert.severity.value,
+                'description': alert.description,
+            })
 
     def _check_network_anomalies(self, db, device, mac, ip, hostname):
         """Security checks that apply even to unauthorized registered devices."""
@@ -298,6 +316,23 @@ class MonitoringService:
             alert.resolved_at = now
             alert.resolved_by = 'system:authorized'
 
+    # FIX: New helper to resolve alerts tied to a specific MAC address when
+    # the device's MAC changes, preventing orphaned unresolved alerts.
+    def _resolve_alerts_by_mac(self, db, old_mac, device_id):
+        """Resolve open policy alerts keyed to an old MAC address."""
+        now = datetime.utcnow()
+        alerts = db.query(Alert).filter(
+            Alert.is_resolved == False,
+            Alert.alert_type.in_(self.POLICY_ALERT_TYPES),
+            Alert.mac_address == old_mac,
+        ).all()
+        for alert in alerts:
+            alert.is_resolved = True
+            alert.resolved_at = now
+            alert.resolved_by = 'system:mac_changed'
+        if alerts:
+            log.info(f"Resolved {len(alerts)} stale alert(s) for old MAC {old_mac}")
+
     def resolve_alerts_for_device_id(self, db, device_id):
         device = db.query(Device).get(device_id)
         if device:
@@ -343,44 +378,37 @@ class MonitoringService:
         """Fallback scanning method using Windows ARP command (no Administrator required)."""
         try:
             log.info(f"Using Windows ARP scan for network: {self.network_range}")
-            
-            # Run Windows ARP command
+
             result = subprocess.run(['arp', '-a'], capture_output=True, text=True, timeout=10)
-            
+
             if result.returncode != 0:
                 log.error(f"ARP command failed: {result.stderr}")
                 return []
-            
-            # Parse ARP output
+
             devices = []
             lines = result.stdout.split('\n')
-            
+
             for line in lines:
-                # ARP output format: "  192.168.1.1           00-11-22-33-44-55     dynamic"
                 parts = line.split()
                 if len(parts) >= 2:
-                    # Check if first part looks like an IP address
                     ip_candidate = parts[0]
                     try:
                         ipaddress.ip_address(ip_candidate)
                         ip = ip_candidate
-                        
-                        # MAC address is usually the second part
+
                         mac_candidate = parts[1]
                         if '-' in mac_candidate and len(mac_candidate) == 17:
                             mac = normalize_mac(mac_candidate)
-                            
-                            # Filter devices not in the configured network range
+
                             if not self._is_ip_in_network_range(ip):
                                 log.debug(f"Skipping device {ip} - not in network range {self.network_range}")
                                 continue
-                            
-                            # Try to resolve hostname
+
                             try:
                                 hostname = socket.gethostbyaddr(ip)[0].split(".")[0].upper()
                             except socket.herror:
                                 hostname = f"UNKNOWN-{mac.replace(':', '-')}"
-                            
+
                             fingerprint = self.fingerprinting.identify_device(mac, ip)
                             devices.append({
                                 'hostname': hostname,
@@ -392,11 +420,11 @@ class MonitoringService:
                             })
                     except (ipaddress.AddressValueError, ValueError):
                         continue
-            
+
             self.detected_devices = devices
             log.info(f"ARP scan detected {len(devices)} devices")
             return devices
-            
+
         except subprocess.TimeoutExpired:
             log.error("ARP command timeout")
             return []
@@ -418,12 +446,23 @@ class MonitoringService:
 
     def _create_alert(self, db, alert_type, severity, title, description, ip, mac, device_id=None):
         mac = normalize_mac(mac)
-        existing = db.query(Alert).filter(
-            Alert.mac_address == mac,
+
+        # FIX: Deduplicate by (mac_address OR device_id) + alert_type, not just
+        # mac_address alone. This catches cases where mac is unknown/None but
+        # device_id is known, preventing duplicate alerts for the same device
+        # reached via different lookup paths.
+        existing_query = db.query(Alert).filter(
             Alert.alert_type == alert_type,
             Alert.is_resolved == False,
-        ).first()
-        if existing:
+        )
+        if device_id:
+            existing_query = existing_query.filter(
+                (Alert.mac_address == mac) | (Alert.device_id == device_id)
+            )
+        else:
+            existing_query = existing_query.filter(Alert.mac_address == mac)
+
+        if existing_query.first():
             return None
 
         alert = Alert(
@@ -448,13 +487,14 @@ class MonitoringService:
                 log.error(f"Socket emit failed: {e}")
 
     def _demo_devices(self):
-        import random
+        # FIX: Removed random.sample() with randomized k — it was the direct
+        # cause of scan results varying between runs. Now returns the full
+        # deterministic pool every time, matching what a real scan would do.
         pool = [
             ("IT-WS-0042", "192.168.1.10", "00:11:22:33:44:55"),
             ("HR-LPT-0023", "192.168.1.11", "00:11:22:33:44:56"),
-            ("UNKNOWN-1", "192.168.1.50", "AA:BB:CC:DD:EE:FF"),
+            ("UNKNOWN-1",   "192.168.1.50", "AA:BB:CC:DD:EE:FF"),
         ]
-        seen = random.sample(pool, k=random.randint(2, 3))
         return [
             {
                 'hostname': h,
@@ -464,5 +504,5 @@ class MonitoringService:
                 'os': 'Unknown',
                 'detected_at': datetime.utcnow().isoformat(),
             }
-            for h, ip, mac in seen
+            for h, ip, mac in pool
         ]

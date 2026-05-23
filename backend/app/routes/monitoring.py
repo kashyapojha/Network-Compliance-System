@@ -3,6 +3,9 @@ import os
 from ..services.monitoring_service import MonitoringService
 from ..utils.network_utils import get_local_network_info, get_network_cidr
 import threading
+import logging
+
+log = logging.getLogger(__name__)
 
 bp = Blueprint('monitoring', __name__)
 monitoring_service = None
@@ -10,18 +13,20 @@ monitoring_thread = None
 
 
 def _get_or_create_service(network_range=None):
-    """Return monitoring service with the requested or auto-detected network range."""
-    global monitoring_service
-    network_range = (
+    """Return monitoring service with the requested or auto-detected network range.
+
+    FIX: Never mutate a running service's network_range mid-scan — that causes
+    a race condition with the background loop. Instead, always create a fresh
+    one-shot service for manual scans so the background instance is untouched.
+    """
+    resolved_range = (
         network_range
         or os.getenv('NETWORK_RANGE')
         or get_network_cidr()
     )
-    if monitoring_service is None:
-        monitoring_service = MonitoringService(network_range=network_range)
-    else:
-        monitoring_service.network_range = network_range
-    return monitoring_service
+    # Always return a fresh instance for one-shot scans.
+    # The background monitoring_service (started via /start) is separate.
+    return MonitoringService(network_range=resolved_range)
 
 
 @bp.route('/network-info', methods=['GET'])
@@ -100,15 +105,51 @@ def get_detected_devices():
 
 @bp.route('/scan', methods=['POST'])
 def trigger_scan():
-    """Trigger an immediate network scan and generate compliance alerts."""
-    global monitoring_service
+    """Trigger an immediate network scan and generate compliance alerts.
 
+    FIX: Wrapped scan_and_check() in a try/except so permission errors,
+    OS errors, and unexpected exceptions return a structured JSON error
+    instead of an unhandled 500 — which is what was causing the frontend
+    to show 'Network scan failed. Is the backend running as Administrator?'
+    even when the real problem was something else entirely.
+    """
     data = request.get_json(silent=True) or {}
     network_range = data.get('network_range')
 
     service = _get_or_create_service(network_range)
     alerts_before = service.alert_count
-    devices = service.scan_and_check()
+
+    try:
+        devices = service.scan_and_check()
+    except PermissionError:
+        log.error("Scan failed: insufficient privileges (run backend as Administrator)")
+        return jsonify({
+            'error': 'permission_denied',
+            'message': (
+                'Network scan requires Administrator privileges. '
+                'Right-click your terminal and choose "Run as Administrator", '
+                'then restart the backend.'
+            ),
+            'devices_found': 0,
+            'alerts_created': 0,
+        }), 403
+    except OSError as e:
+        log.error(f"Scan failed with OS error: {e}")
+        return jsonify({
+            'error': 'os_error',
+            'message': f'OS error during scan: {e}. The ARP fallback may also be unavailable.',
+            'devices_found': 0,
+            'alerts_created': 0,
+        }), 500
+    except Exception as e:
+        log.exception(f"Unexpected scan error: {e}")
+        return jsonify({
+            'error': 'scan_failed',
+            'message': f'Scan failed unexpectedly: {str(e)}',
+            'devices_found': 0,
+            'alerts_created': 0,
+        }), 500
+
     alerts_created = service.alert_count - alerts_before
 
     return jsonify({
