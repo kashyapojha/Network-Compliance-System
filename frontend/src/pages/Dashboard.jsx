@@ -1,5 +1,3 @@
-
-
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -9,7 +7,6 @@ import {
   AlertTriangle, 
   TrendingUp,
   Activity,
-  Users,
   Lock
 } from 'lucide-react'
 
@@ -20,15 +17,23 @@ const Dashboard = () => {
   const [actionMessage, setActionMessage] = useState({ text: '', type: '' })
   const [networkInfo, setNetworkInfo] = useState(null)
   const [scanning, setScanning] = useState(false)
+  const [scanHistory, setScanHistory] = useState([])
   const [currentTime, setCurrentTime] = useState(new Date())
   const navigate = useNavigate()
 
   useEffect(() => {
-    fetchMetrics()
-    fetchNetworkInfo()
+    // FIX: fetch network info first so the metrics call has the range available
+    fetchNetworkInfo().then(info => fetchMetrics(info?.network_range))
+    fetchScanHistory()
     const interval = setInterval(fetchMetrics, 30000)
     return () => clearInterval(interval)
   }, [])
+
+  // FIX: re-fetch metrics whenever networkInfo changes so the
+  // unresolved count updates immediately after network detection
+  useEffect(() => {
+    if (networkInfo) fetchMetrics(networkInfo.network_range)
+  }, [networkInfo])
 
   useEffect(() => {
     const timeInterval = setInterval(() => {
@@ -41,15 +46,32 @@ const Dashboard = () => {
     try {
       const response = await axios.get('/api/monitoring/network-info')
       setNetworkInfo(response.data)
+      return response.data  // FIX: return so callers can chain immediately
     } catch (error) {
       console.error('Failed to fetch network info:', error)
+      return null
     }
   }
 
-  const fetchMetrics = async () => {
+  const fetchScanHistory = async () => {
+    try {
+      const res = await axios.get('/api/monitoring/scan-history', { timeout: 10000 })
+      setScanHistory(Array.isArray(res.data) ? res.data : [])
+    } catch (err) {
+      console.error('Failed to fetch scan history:', err)
+    }
+  }
+
+  const fetchMetrics = async (networkRange) => {
+    // FIX: accept networkRange as param so it works correctly on first load
+    // before React state has updated, falling back to state value
+    const range = networkRange ?? networkInfo?.network_range
     try {
       const [metricsRes, statusRes] = await Promise.all([
-        axios.get('/api/compliance/metrics', { timeout: 15000 }),
+        axios.get('/api/compliance/metrics', {
+          timeout: 15000,
+          params: range ? { network_range: range } : {}
+        }),
         axios.get('/api/monitoring/status', { timeout: 15000 }).catch(() => ({ data: { running: false } }))
       ])
       setMetrics({
@@ -71,7 +93,8 @@ const Dashboard = () => {
       const response = await axios.post('/api/monitoring/scan', {
         network_range: networkInfo?.network_range
       }, { timeout: 30000 }) // 30s — parallel ping sweep completes in 3-5s
-      await fetchMetrics()
+      await fetchMetrics(networkInfo?.network_range)
+      fetchScanHistory()
       const { devices_found, alerts_created, network_range } = response.data
       setActionMessage({
         text: `Scan complete on ${network_range}: ${devices_found} device(s) found, ${alerts_created} new alert(s).`,
@@ -179,26 +202,32 @@ const Dashboard = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="card">
           <h2 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
-            <Users size={20} />
-            Authentication (24h)
+            <Activity size={20} />
+            Recent Scan Activity
           </h2>
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <span className="text-gray-400">Successful</span>
-              <span className="text-green-500 font-bold">{authMetrics.success_last_24h || 0}</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-gray-400">Failed</span>
-              <span className="text-red-500 font-bold">{authMetrics.failure_last_24h || 0}</span>
-            </div>
-            <div className="w-full bg-dark-700 rounded-full h-2">
-              <div
-                className="bg-green-500 h-2 rounded-full"
-                style={{
-                  width: `${(authMetrics.success_last_24h / (authMetrics.success_last_24h + authMetrics.failure_last_24h || 1)) * 100}%`
-                }}
-              />
-            </div>
+          <div className="space-y-2">
+            {scanHistory.length === 0 ? (
+              <p className="text-gray-500 text-sm text-center py-4">No scans yet — run a scan to see history</p>
+            ) : (
+              scanHistory.slice(0, 5).map((entry, i) => (
+                <div key={i} className="flex items-center justify-between text-sm py-1 border-b border-dark-700 last:border-0">
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-500 font-mono text-xs w-36">
+                      {new Date(entry.timestamp + 'Z').toLocaleTimeString('en-IN', {
+                        timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit', hour12: true
+                      })}
+                    </span>
+                    <span className="text-white font-mono text-xs">{entry.network_range}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-primary-400">{entry.devices_found} device{entry.devices_found !== 1 ? 's' : ''}</span>
+                    <span className={entry.alerts_created > 0 ? 'text-yellow-400' : 'text-gray-500'}>
+                      {entry.alerts_created} alert{entry.alerts_created !== 1 ? 's' : ''}
+                    </span>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
         </div>
 

@@ -18,6 +18,7 @@ from ..services.fingerprinting_service import FingerprintingService
 from ..utils.network_utils import get_network_cidr, normalize_mac
 from ..config import Config
 import os
+import json
 
 log = logging.getLogger(__name__)
 
@@ -63,6 +64,12 @@ class MonitoringService:
         self.naming_description = os.getenv(
             'NAMING_DESCRIPTION',
             'DEPT-DEVICETYPE-NNNN (e.g., IT-WS-0042, HR-LPT-0023)'
+        )
+
+        # Scan history log — written after every scan, read by /api/monitoring/scan-history
+        self._scan_history_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            '..', '..', '..', 'monitoring', 'logs', 'scan_history.json'
         )
 
         self.smtp_enabled = os.getenv('SMTP_ENABLED', 'false').lower() == 'true'
@@ -152,6 +159,7 @@ class MonitoringService:
 
     def scan_and_check(self):
         devices = self.scan_network()
+        alerts_before = self.alert_count
         db: Session = next(get_db())
         try:
             for dev in devices:
@@ -162,7 +170,40 @@ class MonitoringService:
             raise
         finally:
             db.close()
+        alerts_created = self.alert_count - alerts_before
+        self._write_scan_history(len(devices), alerts_created)
         return devices
+
+    def _write_scan_history(self, devices_found, alerts_created):
+        """Append scan result to a rolling JSON log (max 20 entries)."""
+        try:
+            os.makedirs(os.path.dirname(self._scan_history_path), exist_ok=True)
+            try:
+                with open(self._scan_history_path, 'r') as f:
+                    history = json.load(f)
+            except (FileNotFoundError, json.JSONDecodeError):
+                history = []
+
+            history.insert(0, {
+                'timestamp': datetime.utcnow().isoformat(),
+                'network_range': self.network_range,
+                'devices_found': devices_found,
+                'alerts_created': alerts_created,
+            })
+            history = history[:20]  # keep last 20 scans
+
+            with open(self._scan_history_path, 'w') as f:
+                json.dump(history, f)
+        except Exception as e:
+            log.error(f"Failed to write scan history: {e}")
+
+    def get_scan_history(self):
+        """Read scan history log. Returns list newest-first."""
+        try:
+            with open(self._scan_history_path, 'r') as f:
+                return json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            return []
 
     def _find_registered_device(self, db, mac, hostname):
         """Match by MAC first, then registered hostname (case-insensitive)."""

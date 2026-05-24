@@ -103,6 +103,14 @@ def get_detected_devices():
     return jsonify([])
 
 
+@bp.route('/scan-history', methods=['GET'])
+def get_scan_history():
+    """Return last 20 scan results for the Recent Scan Activity panel."""
+    global monitoring_service
+    service = monitoring_service or _get_or_create_service()
+    return jsonify(service.get_scan_history())
+
+
 @bp.route('/scan', methods=['POST'])
 def trigger_scan():
     """Trigger an immediate network scan and generate compliance alerts.

@@ -30,4 +30,12 @@ if __name__ == '__main__':
     print(f"Starting Network Compliance System on port {Config.PORT}")
     print(f"Debug mode: {Config.DEBUG}")
     start_background_monitoring()
-    socketio.run(app, host='0.0.0.0', port=Config.PORT, debug=Config.DEBUG)
+    socketio.run(
+        app,
+        host='0.0.0.0',
+        port=Config.PORT,
+        debug=Config.DEBUG,
+        use_reloader=False,   # FIX: watchdog was scanning venv packages and
+                              # restarting the server every few seconds, causing
+                              # ECONNREFUSED on the frontend and breaking auth.
+    )
