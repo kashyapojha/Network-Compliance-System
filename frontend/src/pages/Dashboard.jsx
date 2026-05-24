@@ -1,3 +1,5 @@
+
+
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -14,7 +16,8 @@ import {
 const Dashboard = () => {
   const [metrics, setMetrics] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [actionMessage, setActionMessage] = useState('')
+  // FIX: track message + type separately so success vs error can be styled differently
+  const [actionMessage, setActionMessage] = useState({ text: '', type: '' })
   const [networkInfo, setNetworkInfo] = useState(null)
   const [scanning, setScanning] = useState(false)
   const [currentTime, setCurrentTime] = useState(new Date())
@@ -46,8 +49,8 @@ const Dashboard = () => {
   const fetchMetrics = async () => {
     try {
       const [metricsRes, statusRes] = await Promise.all([
-        axios.get('/api/compliance/metrics'),
-        axios.get('/api/monitoring/status').catch(() => ({ data: { running: false } }))
+        axios.get('/api/compliance/metrics', { timeout: 15000 }),
+        axios.get('/api/monitoring/status', { timeout: 15000 }).catch(() => ({ data: { running: false } }))
       ])
       setMetrics({
         ...metricsRes.data,
@@ -62,32 +65,44 @@ const Dashboard = () => {
 
   const handleScanNetwork = async () => {
     setScanning(true)
-    setActionMessage('')
+    // FIX: clear stale message before every new scan attempt
+    setActionMessage({ text: '', type: '' })
     try {
       const response = await axios.post('/api/monitoring/scan', {
         network_range: networkInfo?.network_range
-      })
+      }, { timeout: 30000 }) // 30s — parallel ping sweep completes in 3-5s
       await fetchMetrics()
       const { devices_found, alerts_created, network_range } = response.data
-      setActionMessage(
-        `Scan complete on ${network_range}: ${devices_found} device(s) found, ${alerts_created} new alert(s). Check Alerts page.`
-      )
+      setActionMessage({
+        text: `Scan complete on ${network_range}: ${devices_found} device(s) found, ${alerts_created} new alert(s).`,
+        type: 'success',
+      })
     } catch (error) {
-      console.error('Failed to scan network:', error)
-      setActionMessage(error.response?.data?.error || 'Network scan failed. Is the backend running as Administrator?')
+      console.error('Scan error:', error)
+      // FIX: read error.response.data.message (the detailed string set by the
+      // backend) first, then fall back to .error (the short code), then a
+      // truly generic fallback only if the request never reached the backend.
+      const detail =
+        error.response?.data?.message ||
+        error.response?.data?.error ||
+        (error.request
+          ? 'No response from backend — is the server running?'
+          : `Request error: ${error.message}`)
+      setActionMessage({ text: detail, type: 'error' })
     } finally {
       setScanning(false)
     }
   }
 
   const handleGenerateReport = async () => {
+    setActionMessage({ text: '', type: '' })
     try {
       await axios.post('/api/compliance/report', { type: 'full' })
-      setActionMessage('Compliance report generated')
+      setActionMessage({ text: 'Compliance report generated', type: 'success' })
       navigate('/compliance')
     } catch (error) {
       console.error('Failed to generate report:', error)
-      setActionMessage('Failed to generate report')
+      setActionMessage({ text: 'Failed to generate report', type: 'error' })
     }
   }
 
@@ -242,12 +257,19 @@ const Dashboard = () => {
       {/* Quick Actions */}
       <div className="card">
         <h2 className="text-xl font-bold text-white mb-4">Quick Actions</h2>
-        {actionMessage && (
-          <p className="text-sm text-primary-400 mb-4">{actionMessage}</p>
+
+        {/* FIX: success = green, error = red, clearly distinct */}
+        {actionMessage.text && (
+          <p className={`text-sm mb-4 ${
+            actionMessage.type === 'error' ? 'text-red-400' : 'text-green-400'
+          }`}>
+            {actionMessage.text}
+          </p>
         )}
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <button onClick={handleScanNetwork} disabled={scanning} className="btn btn-primary">
-            {scanning ? 'Scanning...' : 'Start Network Scan'}
+            {scanning ? 'Scanning…' : 'Start Network Scan'}
           </button>
           <button onClick={handleGenerateReport} className="btn btn-primary">Generate Compliance Report</button>
           <button onClick={handleViewAlerts} className="btn btn-primary">View All Alerts</button>

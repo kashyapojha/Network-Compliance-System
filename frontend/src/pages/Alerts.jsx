@@ -8,6 +8,22 @@ import {
   Search
 } from 'lucide-react'
 
+// FIX: Convert a UTC datetime string from the backend into IST (Asia/Kolkata)
+// The backend stores timestamps without 'Z', so we append it to tell JS it's UTC.
+const formatIST = (utcString) => {
+  if (!utcString) return '—'
+  return new Date(utcString + 'Z').toLocaleString('en-IN', {
+    timeZone: 'Asia/Kolkata',
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true,
+  })
+}
+
 const Alerts = () => {
   const [alerts, setAlerts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -15,9 +31,12 @@ const Alerts = () => {
   const [search, setSearch] = useState('')
   const [error, setError] = useState('')
   const [stats, setStats] = useState(null)
+  const [networkInfo, setNetworkInfo] = useState(null)
+  const [filterByNetwork, setFilterByNetwork] = useState(true)
 
   useEffect(() => {
     fetchAlerts()
+    fetchNetworkInfo()
     const interval = setInterval(fetchAlerts, 15000)
     const onNewAlert = () => fetchAlerts()
     window.addEventListener('compliance:new-alert', onNewAlert)
@@ -49,6 +68,15 @@ const Alerts = () => {
     }
   }
 
+  const fetchNetworkInfo = async () => {
+    try {
+      const res = await axios.get('/api/monitoring/network-info')
+      setNetworkInfo(res.data)
+    } catch (err) {
+      console.error('Failed to fetch network info:', err)
+    }
+  }
+
   const handleResolve = async (alertId) => {
     try {
       await axios.post(`/api/alerts/${alertId}/resolve`, { resolved_by: 'admin' })
@@ -68,7 +96,23 @@ const Alerts = () => {
     }
   }
 
+  // Returns true if ip falls within a CIDR range (e.g. 192.168.1.0/24)
+  const ipInNetwork = (ip, cidr) => {
+    try {
+      if (!ip || !cidr) return true
+      const [netAddr, prefixLen] = cidr.split('/')
+      const prefix = parseInt(prefixLen, 10)
+      const ipToInt = (s) => s.split('.').reduce((acc, o) => (acc << 8) + parseInt(o, 10), 0) >>> 0
+      const mask = prefix === 0 ? 0 : (0xffffffff << (32 - prefix)) >>> 0
+      return (ipToInt(ip) & mask) === (ipToInt(netAddr) & mask)
+    } catch { return true }
+  }
+
   const filteredAlerts = alerts.filter(alert => {
+    // Network filter — only show alerts from the current subnet
+    if (filterByNetwork && networkInfo?.network_range) {
+      if (!ipInNetwork(alert.ip_address, networkInfo.network_range)) return false
+    }
     const q = search.toLowerCase()
     const title = (alert.title || '').toLowerCase()
     const desc = (alert.description || '').toLowerCase()
@@ -93,6 +137,18 @@ const Alerts = () => {
           <button onClick={fetchAlerts} className="btn btn-primary text-sm">
             Refresh
           </button>
+          {networkInfo && (
+            <label className="flex items-center gap-2 text-sm text-gray-400 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={filterByNetwork}
+                onChange={e => setFilterByNetwork(e.target.checked)}
+                className="accent-primary-500"
+              />
+              This network only
+              <span className="font-mono text-xs text-gray-500">({networkInfo.network_range})</span>
+            </label>
+          )}
           <div className="flex items-center gap-2">
             <Filter size={20} className="text-gray-400" />
             <select
@@ -155,10 +211,18 @@ const Alerts = () => {
                   {alert.mac_address && (
                     <span>MAC: {alert.mac_address}</span>
                   )}
-                  <span>
-                    {new Date(alert.created_at).toLocaleString()}
-                  </span>
+                  {/* FIX: was new Date(alert.created_at).toLocaleString()
+                      which treated the UTC string as local time, showing
+                      timestamps 5h30m behind IST. Now explicitly converts
+                      UTC → IST using Asia/Kolkata timezone. */}
+                  <span>{formatIST(alert.created_at)}</span>
                 </div>
+                {alert.is_resolved && alert.resolved_at && (
+                  <div className="mt-1 text-xs text-gray-600">
+                    Resolved {formatIST(alert.resolved_at)}
+                    {alert.resolved_by ? ` by ${alert.resolved_by}` : ''}
+                  </div>
+                )}
               </div>
               {!alert.is_resolved && (
                 <button
